@@ -2238,48 +2238,48 @@ def bot(op):
                       print error
 
 
-            elif msg.text in ["Setpoin","setpoin"]:
-                subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                ehun.sendText(msg.to, "☆Setpoin Checked☆")
-                print "Setpoin"
+            #elif msg.text in ["Setpoin","setpoin"]:
+                #subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                #ehun.sendText(msg.to, "☆Setpoin Checked☆")
+                #print "Setpoin"
 
-            elif msg.text in ["Lastpoin","lastpoin"]:
-	        lurkGroup = ""
-	        dataResult, timeSeen, contacts, userList, timelist, recheckData = [], [], [], [], [], []
-                with open('dataSeen/'+msg.to+'.txt','r') as rr:
-                    contactArr = rr.readlines()
-                    for v in xrange(len(contactArr) -1,0,-1):
-                        num = re.sub(r'\n', "", contactArr[v])
-                        contacts.append(num)
-                        pass
-                    contacts = list(set(contacts))
-                    for z in range(len(contacts)):
-                        arg = contacts[z].split('|')
-                        userList.append(arg[0])
-                        timelist.append(arg[1])
-                    uL = list(set(userList))
-                    for ll in range(len(uL)):
-                        try:
-                            getIndexUser = userList.index(uL[ll])
-                            timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
-                            recheckData.append(userList[getIndexUser])
-                        except IndexError:
-                            conName.append('nones')
-                            pass
-                    contactId = ehun.getContacts(recheckData)
-                    for v in range(len(recheckData)):
-                        dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
-                        pass
-                    if len(dataResult) > 0:
-                        tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
-                        grp = '\n╠➩ '.join(str(f) for f in dataResult)
-                        total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
-                        ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
-                        subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                        ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
-                    else:
-                        ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
-                    print "Lastpoin"
+            #elif msg.text in ["Lastpoin","lastpoin"]:
+	        #lurkGroup = ""
+	        #dataResult, timeSeen, contacts, userList, timelist, recheckData = [], [], [], [], [], []
+                #with open('dataSeen/'+msg.to+'.txt','r') as rr:
+                    #contactArr = rr.readlines()
+                    #for v in xrange(len(contactArr) -1,0,-1):
+                        #num = re.sub(r'\n', "", contactArr[v])
+                        #contacts.append(num)
+                        #pass
+                    #contacts = list(set(contacts))
+                    #for z in range(len(contacts)):
+                        #arg = contacts[z].split('|')
+                        #userList.append(arg[0])
+                        #timelist.append(arg[1])
+                    #uL = list(set(userList))
+                    #for ll in range(len(uL)):
+                        #try:
+                            #getIndexUser = userList.index(uL[ll])
+                            #timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
+                            #recheckData.append(userList[getIndexUser])
+                        #except IndexError:
+                            #conName.append('nones')
+                            #pass
+                    #contactId = ehun.getContacts(recheckData)
+                    #for v in range(len(recheckData)):
+                        #dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
+                        #pass
+                    #if len(dataResult) > 0:
+                        #tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
+                        #grp = '\n╠➩ '.join(str(f) for f in dataResult)
+                        #total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
+                        #ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
+                       # subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                        #ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
+                    #else:
+                        #ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
+                    #print "Lastpoin"
 
 
 	    elif "Kick " in msg.text:
