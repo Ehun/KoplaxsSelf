@@ -298,6 +298,8 @@ wait = {
     "Sambutan":True,
     "inviteprotect":False,    
     "alwaysRead":False,    
+    "pname":{},
+    "pro_name":{},
     "Sider":{},
     "Simi":{},    
     "lang":"JP",
@@ -1530,7 +1532,7 @@ def bot(op):
 	        ehun.sendText(msg.to,"Khusus Ehun")	     
 
 
-            elif msg.text in ["Allprotect on"]:
+            elif msg.text in ["Mode on"]:
 		if msg.from_ in Bots + Creator:
                     wait["AutoCancel"] = True
                     wait["inviteprotect"] = True                   
@@ -1540,7 +1542,7 @@ def bot(op):
 		else:
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
-            elif msg.text in ["Allprotect off"]:
+            elif msg.text in ["Mode off"]:
 		if msg.from_ in Bots + Creator:
                     wait["AutoCancel"] = False
                     wait["inviteprotect"] = False                    
@@ -1587,7 +1589,20 @@ def bot(op):
                     if wait["lang"] == "JP":
                         ehun.sendText(msg.to,"Sudah Off(p′︵‵。)")
                         
-                        
+            elif "Namelock on" in msg.text:
+                if msg.to in wait['pname']:
+                    ehun.sendText(msg.to,"ƬƲƦƝЄƊ ƠƝ.  \nJam :" + datetime.today().strftime('%H:%M:%S'))
+                else:
+                    ehun.sendText(msg.to,"ƬƲƦƝЄƊ ƠƝ.  \nJam :" + datetime.today().strftime('%H:%M:%S'))
+                    wait['pname'][msg.to] = True
+                    wait['pro_name'][msg.to] = ehun.getGroup(msg.to).name
+            elif "Namelock off" in msg.text:
+                if msg.to in wait['pname']:
+                    ehun.sendText(msg.to,"ƬƲƦƝЄƊ OFf,  \nJam :" + datetime.today().strftime('%H:%M:%S'))
+                    del wait['pname'][msg.to]
+                else:
+                    ehun.sendText(msg.to,"ƬƲƦƝЄƊ ƠFF  \nJam :" +datetime.today().strftime('%H:%M:%S'))
+                     
             elif "Sider on" in msg.text:
                 try:
                     del cctv['point'][msg.to]
