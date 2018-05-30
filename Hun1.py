@@ -2254,123 +2254,123 @@ def bot(op):
                   except Exception as error:
                       print error
 
-            elif msg.text == "Intip on":
-                if msg.to in wait2['readPoint']:
-                   try:
-                      del wait2['readPoint'][msg.to]
-                      del wait2['readMember'][msg.to]
-                      del wait2['readTime'][msg.to]
-                   except:
-                      pass
-                   wait2['readPoint'][msg.to] = msg.id
-                   wait2['readMember'][msg.to] = ""
-                   wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
-                   wait2['ROM'][msg.to] = {}
-                   ehun.sendText(msg.to,"Lurking telah diaktifkan")
-                else:
-                    try:
-                       del wait2['readPoint'][msg.to]
-                       del wait2['readMember'][msg.to]
-                       del wait2['readTime'][msg.to]
-                    except:
-                       pass
-                    wait2['readPoint'][msg.to] = msg.id
-                    wait2['readMember'][msg.to] = ""
-                    wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
-                    wait2['ROM'][msg.to] = {}
-                    ehun.sendText(msg.to, "Set reading point : \n" + readTime)
+            #elif msg.text == "Intip on":
+                #if msg.to in wait2['readPoint']:
+                   #try:
+                      #del wait2['readPoint'][msg.to]
+                      #del wait2['readMember'][msg.to]
+                      #del wait2['readTime'][msg.to]
+                  # except:
+                      #pass
+                   #wait2['readPoint'][msg.to] = msg.id
+                   #wait2['readMember'][msg.to] = ""
+                  # wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                   #wait2['ROM'][msg.to] = {}
+                   #ehun.sendText(msg.to,"Lurking telah diaktifkan")
+                #else:
+                    #try:
+                       #del wait2['readPoint'][msg.to]
+                       #del wait2['readMember'][msg.to]
+                       #del wait2['readTime'][msg.to]
+                   # except:
+                       #pass
+                   # wait2['readPoint'][msg.to] = msg.id
+                    #wait2['readMember'][msg.to] = ""
+                    #wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                    #wait2['ROM'][msg.to] = {}
+                   # ehun.sendText(msg.to, "Set reading point : \n" + readTime)
 
-            elif msg.text == "Intip off":
-                if msg.to in wait2["readPoint"]:
-                    try:
-                       del wait2["readPoint"][msg.to]
-                       del wait2["readMember"][msg.to]
-                       del wait2["readTime"][msg.to]
-                       del read["ROM"][msg.to]
-                    except:
-                       pass
-                    wait2['readPoint'][msg.to] = msg.id
-                    wait2['readMember'][msg.to] = ""
-                    wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
-                    wait2['ROM'][msg.to] = {}
-                    ehun.sendText(msg.to, "Reset reading point : \n" + readTime)
-                else:
-                    ehun.sendText(msg.to, "Lurking belum di on")
+            #elif msg.text == "Intip off":
+                #if msg.to in wait2["readPoint"]:
+                    #try:
+                      # del wait2["readPoint"][msg.to]
+                       #del wait2["readMember"][msg.to]
+                       #del wait2["readTime"][msg.to]
+                       #del read["ROM"][msg.to]
+                    #except:
+                       #pass
+                    #wait2['readPoint'][msg.to] = msg.id
+                   # wait2['readMember'][msg.to] = ""
+                   # wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                   # wait2['ROM'][msg.to] = {}
+                    #ehun.sendText(msg.to, "Reset reading point : \n" + readTime)
+                #else:
+                    #ehun.sendText(msg.to, "Lurking belum di on")
 
-            elif msg.text == "Intip":
-                if msg.to in wait2['readPoint']:
-                  if wait2["ROM"][msg.to].items() == []:
-                      ehun.sendText(msg.to,"Tidak Ada Sider")
-                  else:
-                      chiya = []
-                      for rom in wait2["ROM"][msg.to].items():
-                          chiya.append(rom[1])
-                      cmem = ehun.getContacts(chiya)
-                      zx = ""
-                      zxc = ""
-                      zx2 = []
-                      xpesan = '[R E A D E R ]\n'
-                  for x in range(len(cmem)):
-                      xname = str(cmem[x].displayName)
-                      pesan = ''
-                      pesan2 = pesan+"@c\n"
-                      xlen = str(len(zxc)+len(xpesan))
-                      xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
-                      zx = {'S':xlen, 'E':xlen2, 'M':cmem[x].mid}
-                      zx2.append(zx)
-                      zxc += pesan2
-                  text = xpesan+ zxc + "\n" + readTime
-                  try:
-                      ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
-                  except Exception as error:
-                      print (error)
-                  pass
-                else:
-                  ehun.sendText(msg.to,"Lurking belum diaktifkan")
+            #elif msg.text == "Intip":
+                #if msg.to in wait2['readPoint']:
+                  #if wait2["ROM"][msg.to].items() == []:
+                     # ehun.sendText(msg.to,"Tidak Ada Sider")
+                  #else:
+                      #chiya = []
+                      #for rom in wait2["ROM"][msg.to].items():
+                         # chiya.append(rom[1])
+                      #cmem = ehun.getContacts(chiya)
+                     # zx = ""
+                      #zxc = ""
+                     # zx2 = []
+                      #xpesan = '[R E A D E R ]\n'
+                 # for x in range(len(cmem)):
+                      #xname = str(cmem[x].displayName)
+                     # pesan = ''
+                      #pesan2 = pesan+"@c\n"
+                      #xlen = str(len(zxc)+len(xpesan))
+                     # xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
+                      #zx = {'S':xlen, 'E':xlen2, 'M':cmem[x].mid}
+                     # zx2.append(zx)
+                      #zxc += pesan2
+                  #text = xpesan+ zxc + "\n" + readTime
+                  #try:
+                      #ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
+                  #except Exception as error:
+                     # print (error)
+                  #pass
+                #else:
+                  #ehun.sendText(msg.to,"Lurking belum diaktifkan")
 
 
-            elif msg.text in ["Setpoin","setpoin"]:
-                subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                ehun.sendText(msg.to, "☆Setpoin Checked☆")
-                print "Setpoin"
+            #elif msg.text in ["Setpoin","setpoin"]:
+                #subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                #ehun.sendText(msg.to, "☆Setpoin Checked☆")
+                #print "Setpoin"
 
-            elif msg.text in ["Lastpoin","lastpoin"]:
-	        lurkGroup = ""
-	        dataResult, timeSeen, contacts, userList, timelist, recheckData = [], [], [], [], [], []
-                with open('dataSeen/'+msg.to+'.txt','r') as rr:
-                    contactArr = rr.readlines()
-                    for v in xrange(len(contactArr) -1,0,-1):
-                        num = re.sub(r'\n', "", contactArr[v])
-                        contacts.append(num)
-                        pass
-                    contacts = list(set(contacts))
-                    for z in range(len(contacts)):
-                        arg = contacts[z].split('|')
-                        userList.append(arg[0])
-                        timelist.append(arg[1])
-                    uL = list(set(userList))
-                    for ll in range(len(uL)):
-                        try:
-                            getIndexUser = userList.index(uL[ll])
-                            timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
-                            recheckData.append(userList[getIndexUser])
-                        except IndexError:
-                            conName.append('nones')
-                            pass
-                    contactId = ehun.getContacts(recheckData)
-                    for v in range(len(recheckData)):
-                        dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
-                        pass
-                    if len(dataResult) > 0:
-                        tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
-                        grp = '\n╠➩ '.join(str(f) for f in dataResult)
-                        total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
-                        ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
-                        subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                        ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
-                    else:
-                        ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
-                    print "Lastpoin"
+            #elif msg.text in ["Lastpoin","lastpoin"]:
+	        #lurkGroup = ""
+	        #dataResult, timeSeen, contacts, userList, timelist, recheckData = [], [], [], [], [], []
+                #with open('dataSeen/'+msg.to+'.txt','r') as rr:
+                    #contactArr = rr.readlines()
+                    #for v in xrange(len(contactArr) -1,0,-1):
+                        #num = re.sub(r'\n', "", contactArr[v])
+                        #contacts.append(num)
+                        #pass
+                    #contacts = list(set(contacts))
+                    #for z in range(len(contacts)):
+                        #arg = contacts[z].split('|')
+                        #userList.append(arg[0])
+                        #timelist.append(arg[1])
+                    #uL = list(set(userList))
+                    #for ll in range(len(uL)):
+                        #try:
+                            #getIndexUser = userList.index(uL[ll])
+                            #timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
+                            #recheckData.append(userList[getIndexUser])
+                        #except IndexError:
+                            #conName.append('nones')
+                            #pass
+                   # contactId = ehun.getContacts(recheckData)
+                    #for v in range(len(recheckData)):
+                        #dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
+                        #pass
+                   # if len(dataResult) > 0:
+                        #tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
+                       # grp = '\n╠➩ '.join(str(f) for f in dataResult)
+                       # total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
+                       # ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
+                       # subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                        #ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
+                    #else:
+                        #ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
+                    #print "Lastpoin"
 
             elif msg.text == "Cctv":
                 if msg.from_ in Bots + Creator:
