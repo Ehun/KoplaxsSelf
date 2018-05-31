@@ -4,10 +4,10 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
-#from bs4 import BeautifulSoup
-#from threading import Thread
-#from googletrans import Translator
-#from gtts import gTTS
+from bs4 import BeautifulSoup
+from threading import Thread
+from googletrans import Translator
+from gtts import gTTS
 import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
 
 ehun = LINETCR.LINE()
@@ -321,9 +321,6 @@ wait2 = {
     "readMember":{},
     "setTime":{},
     "ROM":{}
-#    "copy":False,
-#    "target":{},
-#    "midsTarget":{}
     }
     
 mimic = {
@@ -562,7 +559,7 @@ def bot(op):
 	    try:
 	      group_id = op.param1
 	      user_id=op.param2
-	      subprocess.Popen('echo "'+ user_id+'|'+str(op.createdTime)+'" >> dataSeen/%s.txt' % group_id, shell=True, stdout=subprocess.PIPE, )
+	      subprocess.Popen('echo "'+ user_id+'|'+ str(op.createdTime)+'" >> dataSeen/%s.txt' % group_id, shell=True, stdout=subprocess.PIPE, )
 	    except Exception as e:
 	      print e
 
@@ -573,18 +570,19 @@ def bot(op):
                  if Name in wait2['readMember'][op.param1]:
                     pass
                  else:
-                    wait2['readMember'][op.param1] += "\n[•]" + Name
-                    wait2['ROM'][op.param1][op.param2] = "[•]" + Name
+                    wait2['readMember'][op.param1] += "\n[•]" + Name + "\n" + datetime.today().strftime('%H:%M:%S')
+                    wait2['ROM'][op.param1][op.param2] #= "[•]" + Name
                else:
                  ehun.sendText
             except:
                  pass
 
+
         if op.type == 55:
                 try:
                     if cctv['cyduk'][op.param1]==True:
                         if op.param1 in cctv['point']:
-                            Name = ehun.getContact(op.param2).displayName
+                            Name = ehun.getContact(op.param2). displayName
                             if Name in cctv['sidermem'][op.param1]:
                                 pass
                             else:
@@ -613,6 +611,7 @@ def bot(op):
         else:
             pass
      
+
 	if op.type == 11:
             if op.param3 == '1':
                 if op.param1 in wait['pname']:
@@ -819,27 +818,24 @@ def bot(op):
             else:
                 pass
 
-
         if op.type == 17:
           if wait["Sambutan"] == True:
             if op.param2 in Creator:
                 return
             ginfo = ehun.getGroup(op.param1)
             contact = ehun.getContact(op.param2)
-            image = "http://dl.profile.line-cdn.net/" + contact.pictureStatus
-            ehun.sendText(op.param1,"Hallo " + ehun.getContact(op.param2).displayName + "\nWelcome To ☞ " + str(ginfo.name) + " ☜" + "\nBudayakan Cek Note\nDan Semoga Betah Disini ^_^")
+            #ehun.sendText(op.param1,"Hallo " + ehun.getContact(op.param2).displayName + "\nWelcome To ☞ " + str(ginfo.name) + " ☜" + "\nBudayakan Cek Note\nDan Semoga Betah Disini ^_^")
             c = Message(to=op.param1, from_=None, text=None, contentType=13)
             c.contentMetadata={'mid':op.param2}
-            ehun.sendMessage(c)  
-            ehun.sendImageWithURL(op.param1,image)
-            d = Message(to=op.param1, from_=None, text=None, contentType=7)
-            d.contentMetadata={
-                                    "STKID": "13269548",
-                                    "STKPKGID": "1329191",
-                                    "STKVER": "1" }                
-            ehun.sendMessage(d)             
+            ehun.sendMessage(c)
+            ehun.sendText(op.param1,"Jam  :" + datetime.today().strftime('%H:%M:%S') + "\nHallo kak" + ehun.getContact(op.param2).displayName + "\nWelcome To ☞ " + str(ginfo.name) + " ☜ \nBudayakan Cek Note\nDan Semoga Betah di Sini . (p′︵‵。) 🤗 \nCreator>>" + str(ginfo.name) + " :\n" + ginfo.creator.displayName)
+            gCreator = ginfo.creator.mid
+            msg = Message(to=op.param1, from_=None, text=None,contentType=13)
+            msg.contentMetadata = {'mid': gCreator}
+            ehun.sendMessage(msg)
             print "MEMBER JOIN TO GROUP"
 
+            
         if op.type == 15:
           if wait["Sambutan"] == True:
             if op.param2 in Creator:
@@ -887,12 +883,12 @@ def bot(op):
                                   ehun.sendText(msg.to,ret_)
                                   ehun.kickoutFromGroup(msg.to,[msg.from_])
                                   break                              
-                              
+
             if 'MENTION' in msg.contentMetadata.keys() != None:
                  if wait["detectMention"] == True:
                      contact = ehun.getContact(msg.from_)
                      cName = contact.displayName
-                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Aku\Kalo Penting Langsung Pc Aja", "Kak" + cName + "\nJangn tag aku\Kaknaksir aku ya (-_-)", "Jangan Suka Tag Aku" + cName + "\nKamu Siapa ?"]
+                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Aku\nKalo Penting Langsung Pc Aja", "Kak" + cName + "\nJangn tag aku\nKaknaksir aku ya (-_-)", "Jangan Suka Tag Aku" + cName + "\nKamu Siapa ?"]
                      ret_ = random.choice(balas)
                      name = re.findall(r'@(\w+)', msg.text)
                      mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1340,7 +1336,6 @@ def bot(op):
 		    ehun.sendText(msg.to,"Success Leave All Group")
 		else:
 		    ehun.sendText(msg.to,"Khusus Ehun")
-		   
 
             elif "Pict group: " in msg.text:
                 saya = msg.text.replace('Pict group: ','')
@@ -1351,7 +1346,7 @@ def bot(op):
                     if h == saya:
                         ehun.sendImageWithURL(msg.to,"http://dl.profile.line.naver.jp/"+ gna.pictureStatus)		    
 		    
- 
+
             elif msg.text in ["cancelall","Cancelall"]:
                 if msg.toType == 2:
                     X = ehun.getGroup(msg.to)
@@ -2260,39 +2255,49 @@ def bot(op):
                       #del wait2['readPoint'][msg.to]
                       #del wait2['readMember'][msg.to]
                       #del wait2['readTime'][msg.to]
-                  # except:
+                   #except:
                       #pass
-                   #wait2['readPoint'][msg.to] = msg.id
-                   #wait2['readMember'][msg.to] = ""
-                  # wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                   
+#wait2['readPoint'][msg.to] = msg.id
+                   
+#wait2['readMember'][msg.to] = ""
+                   
+#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
                    #wait2['ROM'][msg.to] = {}
-                   #ehun.sendText(msg.to,"Lurking telah diaktifkan")
+                   
+#ehun.sendText(msg.to,"Lurking telah diaktifkan")
                 #else:
                     #try:
                        #del wait2['readPoint'][msg.to]
                        #del wait2['readMember'][msg.to]
                        #del wait2['readTime'][msg.to]
-                   # except:
+                    #except:
                        #pass
-                   # wait2['readPoint'][msg.to] = msg.id
-                    #wait2['readMember'][msg.to] = ""
-                    #wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                    
+#wait2['readPoint'][msg.to] = msg.id
+                    
+#wait2['readMember'][msg.to] = ""
+                    
+#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
                     #wait2['ROM'][msg.to] = {}
-                   # ehun.sendText(msg.to, "Set reading point : \n" + readTime)
+                    #ehun.sendText(msg.to, "Set reading point : \n" + readTime)
 
             #elif msg.text == "Intip off":
                 #if msg.to in wait2["readPoint"]:
                     #try:
-                      # del wait2["readPoint"][msg.to]
+                       #del wait2["readPoint"][msg.to]
                        #del wait2["readMember"][msg.to]
                        #del wait2["readTime"][msg.to]
                        #del read["ROM"][msg.to]
                     #except:
                        #pass
-                    #wait2['readPoint'][msg.to] = msg.id
-                   # wait2['readMember'][msg.to] = ""
-                   # wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
-                   # wait2['ROM'][msg.to] = {}
+                    
+#wait2['readPoint'][msg.to] = msg.id
+                    
+#wait2['readMember'][msg.to] = ""
+                    
+#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                    #wait2['ROM'][msg.to] = {}
                     #ehun.sendText(msg.to, "Reset reading point : \n" + readTime)
                 #else:
                     #ehun.sendText(msg.to, "Lurking belum di on")
@@ -2300,33 +2305,37 @@ def bot(op):
             #elif msg.text == "Intip":
                 #if msg.to in wait2['readPoint']:
                   #if wait2["ROM"][msg.to].items() == []:
-                     # ehun.sendText(msg.to,"Tidak Ada Sider")
+                      
+#ehun.sendText(msg.to,"Tidak Ada Sider")
                   #else:
                       #chiya = []
                       #for rom in wait2["ROM"][msg.to].items():
-                         # chiya.append(rom[1])
+                          
+#chiya.append(rom[1])
                       #cmem = ehun.getContacts(chiya)
-                     # zx = ""
+                      #zx = ""
                       #zxc = ""
-                     # zx2 = []
+                      #zx2 = []
                       #xpesan = '[R E A D E R ]\n'
-                 # for x in range(len(cmem)):
+                  #for x in range(len(cmem)):
                       #xname = str(cmem[x].displayName)
-                     # pesan = ''
+                      #pesan = ''
                       #pesan2 = pesan+"@c\n"
                       #xlen = str(len(zxc)+len(xpesan))
-                     # xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
+                      #xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
                       #zx = {'S':xlen, 'E':xlen2, 'M':cmem[x].mid}
-                     # zx2.append(zx)
+                      #zx2.append(zx)
                       #zxc += pesan2
                   #text = xpesan+ zxc + "\n" + readTime
                   #try:
-                      #ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
+                      
+#ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
                   #except Exception as error:
-                     # print (error)
+                      #print (error)
                   #pass
                 #else:
-                  #ehun.sendText(msg.to,"Lurking belum diaktifkan")
+                  
+#ehun.sendText(msg.to,"Lurking belum diaktifkan")
 
 
             #elif msg.text in ["Setpoin","setpoin"]:
@@ -2341,40 +2350,51 @@ def bot(op):
                     #contactArr = rr.readlines()
                     #for v in xrange(len(contactArr) -1,0,-1):
                         #num = re.sub(r'\n', "", contactArr[v])
-                        #contacts.append(num)
+                        
+#contacts.append(num)
                         #pass
                     #contacts = list(set(contacts))
                     #for z in range(len(contacts)):
                         #arg = contacts[z].split('|')
-                        #userList.append(arg[0])
-                        #timelist.append(arg[1])
+                        
+#userList.append(arg[0])
+                        
+#timelist.append(arg[1])
                     #uL = list(set(userList))
                     #for ll in range(len(uL)):
                         #try:
                             #getIndexUser = userList.index(uL[ll])
-                            #timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
-                            #recheckData.append(userList[getIndexUser])
+                            
+#timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
+                            
+#recheckData.append(userList[getIndexUser])
                         #except IndexError:
-                            #conName.append('nones')
+                            
+#conName.append('nones')
                             #pass
-                   # contactId = ehun.getContacts(recheckData)
+                    #contactId = ehun.getContacts(recheckData)
                     #for v in range(len(recheckData)):
-                        #dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
+                        
+#dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
                         #pass
-                   # if len(dataResult) > 0:
+                    #if len(dataResult) > 0:
                         #tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
-                       # grp = '\n╠➩ '.join(str(f) for f in dataResult)
-                       # total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
-                       # ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
-                       # subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                        #ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
+                        #grp = '\n╠➩ '.join(str(f) for f in dataResult)
+                        #total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
+                        
+#ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
+                        
+#subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                        
+#ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
                     #else:
-                        #ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
+                        
+#ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
                     #print "Lastpoin"
 
             elif msg.text == "Cctv":
                 if msg.from_ in Bots + Creator:
-                  ehun.sendText(msg.to, "Cek CCTV")
+                  ehun.sendText(msg.to,"Set poin ('・ω・')    " + datetime.today().strftime('%H:%M:%S'))
                   try:
                      del wait2['readPoint'][msg.to]
                      del wait2['readMember'][msg.to]
@@ -2383,7 +2403,7 @@ def bot(op):
                   now2 = datetime.now()
                   wait2['readPoint'][msg.to] = msg.id
                   wait2['readMember'][msg.to] = ""
-                  wait2['setTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                  wait2['setTime'][msg.to] = datetime.strftime(now2,"%H:%M:%S")
                   wait2['ROM'][msg.to] = {}
 
             elif msg.text == "Cek":
@@ -2396,7 +2416,7 @@ def bot(op):
                         for rom in wait2["ROM"][msg.to].items():
                             chiya += rom[1] + "\n"
 
-                    ehun.sendText(msg.to, "||Di Read Oleh||%s\n||By : ✰Ehun bot✰||\n\n>Pelaku CCTV<\n%s-=CCTV=-\n[%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
+                    ehun.sendText(msg.to,"      ||By : ✰Ehun bot✰||\n   Ini kak yang on tadi !!!\n-------------------------------------------------------------\n%s\n%s\nDoain sehat Ceria Semua ya kak (-_-)\n-------------------------------------------------------------\n    Set poin ('・ω・')     [%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
                   else:
                     ehun.sendText(msg.to,"Ketik Cctv dulu")
 
