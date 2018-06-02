@@ -285,6 +285,7 @@ wait = {
     'kickMention':False,  
     'sticker':True,
     'timeline':True,
+    'sider1':"CCTV Jones 😂😂😂",
     "Timeline":True,
     "comment":"Bot Auto Like ©By : Ehun\nContact Me : 👉 line.me/ti/p/~sarehun",
     "commentOn":True,
@@ -300,7 +301,7 @@ wait = {
     "alwaysRead":False,    
     "pname":{},
     "pro_name":{},
-    "Sider":{},
+    "Sider":False,
     "Simi":{},    
     "lang":"JP",
     "BlGroup":{}
@@ -570,7 +571,7 @@ def bot(op):
                  if Name in wait2['readMember'][op.param1]:
                     pass
                  else:
-                    wait2['readMember'][op.param1] += "\n[•]" + Name + "\n" + datetime.today().strftime('%H:%M:%S')
+                    wait2['readMember'][op.param1] += "\n[•]" + Name + "\nOn Jam : " + datetime.today().strftime('%H:%M:%S')
                     wait2['ROM'][op.param1][op.param2] #= "[•]" + Name
                else:
                  ehun.sendText
@@ -583,22 +584,22 @@ def bot(op):
                     if cctv['cyduk'][op.param1]==True:
                         if op.param1 in cctv['point']:
                             Name = ehun.getContact(op.param2). displayName
-                            if Name in cctv['sidermem'][op.param1]:
+                            if Name in cctv['sidermem'][op.param1] + "\n" + datetime.today().strftime('%H:%M:%S'):
                                 pass
                             else:
-                                cctv['sidermem'][op.param1] += "\n• " + Name
+                                cctv['sidermem'][op.param1] += "\n• " + Name + "\n" + datetime.today().strftime('%H:%M:%S')
                                 if " " in Name:
                                     nick = Name.split(' ')
                                     if len(nick) == 2:
-                                        ehun.sendText(op.param1, "Haii " + "☞ " + Name + " ☜" + "\nNgintip Aja Niih. . .\nChat Kek Idiih (-__-)   ")
+                                        ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii Kak\n" + "☞ " + Name + " ☜" + "\nNgintip Aja Niih. . .\nChat Kek Idiih (-__-)   ")
                                         time.sleep(0.0001)
                                         summon(op.param1,[op.param2])
                                     else:
-                                        ehun.sendText(op.param1, "Haii " + "☞ " + Name + " ☜" + "\nBetah Banget Jadi Penonton. . .\nChat Napa (-__-)   ")
+                                        ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii kak\n" + "☞ " + Name + " ☜" + "\nBetah Banget Jadi Penonton. . .\nChat Napa (-__-)   ")
                                         time.sleep(0.0001)
                                         summon(op.param1,[op.param2])
                                 else:
-                                    ehun.sendText(op.param1, "Haii " + "☞ " + Name + " ☜" + "\nNgapain Kak Ngintip Aja???\nSini Gabung Chat...   ")
+                                    ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii kak\n" + "☞ " + Name + " ☜" + "\nNgapain Kak Ngintip Aja???\nSini Gabung Chat...   ")
                                     time.sleep(0.0001)
                                     summon(op.param1,[op.param2])
                         else:
@@ -824,7 +825,7 @@ def bot(op):
                 return
             ginfo = ehun.getGroup(op.param1)
             contact = ehun.getContact(op.param2)
-            #ehun.sendText(op.param1,"Hallo " + ehun.getContact(op.param2).displayName + "\nWelcome To ☞ " + str(ginfo.name) + " ☜" + "\nBudayakan Cek Note\nDan Semoga Betah Disini ^_^")
+            #ehun.getContact(op.param2).displayName
             c = Message(to=op.param1, from_=None, text=None, contentType=13)
             c.contentMetadata={'mid':op.param2}
             ehun.sendMessage(c)
@@ -888,7 +889,7 @@ def bot(op):
                  if wait["detectMention"] == True:
                      contact = ehun.getContact(msg.from_)
                      cName = contact.displayName
-                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Aku\nKalo Penting Langsung Pc Aja", "Kak" + cName + "\nJangn tag aku\nKaknaksir aku ya (-_-)", "Jangan Suka Tag Aku" + cName + "\nKamu Siapa ?"]
+                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Aku\nKalo Penting Langsung Pc Aja", "Kak\n" + cName + "\nJangn tag aku\nKaknaksir aku ya (-_-)", "Jangan Suka Tag Aku kak\n" + cName + "\nKamu Siapa ?"]
                      ret_ = random.choice(balas)
                      name = re.findall(r'@(\w+)', msg.text)
                      mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -896,12 +897,10 @@ def bot(op):
                      for mention in mentionees:
                            if mention['M'] in Bots:
                                  ehun.sendText(msg.to,ret_)
-                           #if mention['M'] in Creator:
-                                #ehun.sendText(msg.to,ret_)
-                                 #msg.contentType = 13
-                                 #msg.text = None
-                                 #msg.contentMetadata = {'mid': "ub3808de9f7df35f57fb366d157f9790a"}
-                                 #ehun.sendMessage(msg)
+                                 msg.contentType = 7
+                                 msg.text = None
+                                 msg.contentMetadata = {"STKID" : '13636219',  "STKPKGID" : '1340317', "STKVER" : '1'}
+                                 ehun.sendMessage(msg)
                                  break   
                               
             if 'MENTION' in msg.contentMetadata.keys() != None:
@@ -919,8 +918,8 @@ def bot(op):
                                   msg.contentType = 7   
                                   msg.text = None
                                   msg.contentMetadata = {
-                                                       "STKID": "20001316",
-                                                       "STKPKGID": "1582380",
+                                                       "STKID" :  '15027642',
+                                                       "STKPKGID" : '1384991',
                                                        "STKVER": "1" }
                                   ehun.sendMessage(msg)                                
                                   break
@@ -1220,22 +1219,84 @@ def bot(op):
                                       ehun.sendText(msg.to,"Limit Invite")
                                       wait['invite'] = False
                                       break
-                                  
- 
+                          
+            elif msg.text in ["#hun"]:
+              if msg.from_ in Bots + Creator:
+                ehun.sendText(msg.to,"Assakamualaikum kakak")
+                ehun.sendText(msg.to,"Aih gak ada yg jawab salam (-_-) \nKu spam nih Room")
+                Ehun = " @b̶o̶tডা‮‮─┅═ই offDel C: *.* |y .1.2.3.4.5.6.7.8.9.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J."
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, Ehun)
+                ehun.sendText(msg.to, "Waalaikum salam ")
+                ehun.sendText(msg.to, "Nah sepi amit")
+              else:
+                ehun.sendText(msg.to, "Khusus Creator")
+
+
+            elif "#virus" in msg.text:
+                msg.contentType = 13
+                msg.contentMetadata = {'mid': "BEBAS,'"}
+                ehun.sendMessage(msg)
+
+            elif "#leave" in msg.text:
+                try:
+                    import sys
+                    sys.exit()
+                except:
+                    pass
+
+            elif "Haloo" in msg.text:
+                group = ehun.getGroup(msg.to)
+                k = len(group.members)//200
+                for j in xrange(k+1):
+                    msg = Message(to=msg.to)
+                    txt = u''
+                    s=0
+                    d=[]
+                    for i in group.members[j*400 : (j+1)*500]:
+                        d.append({"S":str(s), "E" :str(s+8), "M":i.mid})
+                        s += 9
+                        txt += u'@Krampus\n'
+                    msg.text = txt
+                    msg.contentMetadata = {u'MENTION':json.dumps({"MENTIONEES":d})}
+                    ehun.sendMessage(msg)
+
+            elif "Sider: " in msg.text:
+                c = msg.text.replace("Sider: ","")
+                if c in [""," ","\n",None]:
+                   ehun.sendText(msg.to,"Is a string that can not be changed✔")
+                else:
+                   wait["sider1"] = c
+                   ehun.sendText(msg.to,"✨This has been changed✨\n\n" + c)
+
             elif msg.text in ["Key creator","help creator","Help creator"]:
                 ehun.sendText(msg.to,creatorMessage)
 
-            elif msg.text in ["Key group","help group","Help group"]:
+            elif msg.text in ["Key group","help group","Help group"]: 
                 ehun.sendText(msg.to,groupMessage)
 
             elif msg.text in ["Key","help","Help"]:
                 ehun.sendText(msg.to,helpMessage)
 
             elif msg.text in ["Key self","help self","Help self"]:
-                ehun.sendText(msg.to,selfMessage)
+                 ehun.sendText(msg.to,selfMessage) 
 
             elif msg.text in ["Key bot","help bot","Help bot"]:
-                ehun.sendText(msg.to,botMessage)
+                 ehun.sendText(msg.to,botMessage)
 
             elif msg.text in ["Key set","help set","Help set"]:
                 ehun.sendText(msg.to,setMessage)
@@ -1245,7 +1306,6 @@ def bot(op):
 
             elif msg.text in ["Key admin","help admin","Help admin"]:
                 ehun.sendText(msg.to,adminMessage)               
-                
              
             elif msg.text in ["List group"]:
                     gid = ehun.getGroupIdsJoined()
@@ -1345,7 +1405,18 @@ def bot(op):
                     gna = ehun.getGroup(i)
                     if h == saya:
                         ehun.sendImageWithURL(msg.to,"http://dl.profile.line.naver.jp/"+ gna.pictureStatus)		    
-		    
+
+            #elif "ftext " in msg.text.lower:
+                #txt = msg.text.replace("ftext ", "")
+                #t1 = "\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xa0\x81\xf4\x80\xa0\x81\xf4\x80\xa0\x81"
+                #t2 = "\xf4\x80\x82\xb3\xf4\x8f\xbf\xbf"
+                #ehun.sendText(msg.to, t1 + txt + t2)
+            elif "Smule " in msg.text:
+                    a = msg.text.replace("Smule ","")
+                    b = urllib.quote(a)
+                    ehun.sendText(msg.to,"Searching to id smule..")
+                    ehun.sendText(msg.to, "Nama: "+b+"\nId smule: http://smule.com/" +b)
+		   
 
             elif msg.text in ["cancelall","Cancelall"]:
                 if msg.toType == 2:
@@ -1614,7 +1685,29 @@ def bot(op):
                     if wait["lang"] == "JP":
                         ehun.sendText(msg.to,"Sudah Off(p′︵‵。)")
                         
-                        
+            elif "On sider" in msg.text:
+              if msg.from_ in Bots + Creator:
+                ginfo = ehun.getGroup(msg.to)
+                gCreator = ginfo.creator.displayName
+                gCreator = ginfo.creator.mid
+                msg.contentType = 13
+                msg.contentMetadata = {'mid': gCreator}
+                try:
+                    del cctv['point'][msg.to]
+                    del cctv['sidermem'][msg.to]
+                    del cctv['cyduk'][msg.to]
+                except:
+                     pass
+                cctv['point'][msg.to] = msg.id
+                cctv['sidermem'][msg.to] = ""
+                cctv['cyduk'][msg.to]=True
+                wait["Sider"] = True
+                ehun.sendText(msg.to,"Siap On Cek Sider di group\n" + str(ginfo.name) + "\nJam : > " + datetime.today().strftime('%H:%M:%S') + "\nPembuat Group >> " + str(ginfo.name) + "\nAdlah >>" + ginfo.creator.displayName)
+                ehun.sendMessage(msg)
+              else:
+                ehun.sendText(msg.to,"Khusus Bots & Creator")
+
+                      
             elif "Sider on" in msg.text:
                 try:
                     del cctv['point'][msg.to]
@@ -1981,6 +2074,16 @@ def bot(op):
                                 except:
                                     msg.contentMetadata = {'mid': target}
 
+            elif msg.text in ["Spam2"]:
+                msg.contentType = 7
+                msg.contentMetadata={
+                                     "STKID" : '13636214',
+                                     "STKPKGID" : '1340317',
+                                     "STKVER" : '1'}
+                msg.text = None
+                ehun.sendMessage(msg)
+                ehun.sendMessage(msg)
+                ehun.sendMessage(msg)
 
             elif msg.text.lower() in ["wkwkwk","wkwk","hahaha","haha"]:
                 msg.contentType = 7
@@ -2141,7 +2244,7 @@ def bot(op):
                                     'STKVER': '100'}
                 msg.text = None
                 ehun.sendMessage(msg)
-                
+            
 
             elif "Tag all" == msg.text:
                  group = ehun.getGroup(msg.to)
@@ -2392,9 +2495,9 @@ def bot(op):
 #ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
                     #print "Lastpoin"
 
-            elif msg.text == "Cctv":
+            elif msg.text in ["Setpoin", "Set poin"]:
                 if msg.from_ in Bots + Creator:
-                  ehun.sendText(msg.to,"Set poin ('・ω・')    " + datetime.today().strftime('%H:%M:%S'))
+                  ehun.sendText(msg.to,"Set poin ('・ω・') Jam   [" + datetime.today().strftime('%H:%M:%S') + "]")
                   try:
                      del wait2['readPoint'][msg.to]
                      del wait2['readMember'][msg.to]
@@ -2406,7 +2509,7 @@ def bot(op):
                   wait2['setTime'][msg.to] = datetime.strftime(now2,"%H:%M:%S")
                   wait2['ROM'][msg.to] = {}
 
-            elif msg.text == "Cek":
+            elif msg.text in ["Laspoin", "Las poin"]:
                 if msg.from_ in Bots + Creator:
                   if msg.to in wait2['readPoint']:
                     if wait2["ROM"][msg.to].items() == []:
@@ -2416,9 +2519,9 @@ def bot(op):
                         for rom in wait2["ROM"][msg.to].items():
                             chiya += rom[1] + "\n"
 
-                    ehun.sendText(msg.to,"      ||By : ✰Ehun bot✰||\n   Ini kak yang on tadi !!!\n-------------------------------------------------------------\n%s\n%s\nDoain sehat Ceria Semua ya kak (-_-)\n-------------------------------------------------------------\n    Set poin ('・ω・')     [%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
+                    ehun.sendText(msg.to,"      ||By : ✰Ehun bot✰||\n   Ini kak yang on tadi !!!\n-------------------------------------------------------------\n%s\n%s\nDoain sehat Ceria Semua ya kak (-_-)\n-------------------------------------------------------------\n    Set poin ('・ω・')  Jam  [%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
                   else:
-                    ehun.sendText(msg.to,"Ketik Cctv dulu")
+                    ehun.sendText(msg.to,"Ktik 👉 Setpoin 👈 dulu")
 
 	    elif "Kick " in msg.text:
 		if msg.from_ in Bots + Creator: 
