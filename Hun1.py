@@ -125,7 +125,7 @@ groupMessage ="""
 ╠➩〘Setview〙
 ╠➩〘Viewseen〙
 ╠➩〘Gn: (NamaGroup)〙
-╠➩〘Tag all〙
+╠➩〘Tag all/ Tag/ Tagall〙
 ╠➩〘Recover〙
 ╠➩〘Cancel〙
 ╠➩〘Cancelall〙
@@ -178,8 +178,6 @@ creatorMessage ="""
 ╠➩〘Tag on/off〙
 ╠➩〘Bot restart〙
 ╠➩〘Turn off〙
-|> [#hun]
-|> [#virus]
 |> [Smule]
 ╠═════════════════════════
 ║      by Ehun http://line.me/ti/p/~sarehun
@@ -242,11 +240,6 @@ helpMessage ="""
 ╠➩〘Speed〙
 ╠➩〘Speed test〙
 ╠➩〘Status〙
-|> [Setpoin]
-|> [Laspoin]
-|> [Sider on/On sider]
-|> [Sider off]
-|> [Haloo/Tag/Tagall/Tag all]
 ╠═════════════════════════
 ║     by Ehun http://line.me/ti/p/sarehun
 ╚═════════════════════════
