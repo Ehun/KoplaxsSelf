@@ -8,7 +8,7 @@ import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,
 
 ehun = LINETCR.LINE()
 #ehun.login(qr=True)
-ehun.login(token="EtP88UQewgaZewX2y1ja.S4cn6FFFnFv+S2Brv+L5cG.Z10BxdoyrnrgVRzPOTxjjvP2pMlEYkutmpX8lsDo4+M=")
+ehun.login(token="Di sini token kamu ")
 ehun.loginResult()
 
 Creator = ehun
