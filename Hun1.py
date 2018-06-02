@@ -4,15 +4,10 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
-from bs4 import BeautifulSoup
-from threading import Thread
-from googletrans import Translator
-from gtts import gTTS
 import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
 
 ehun = LINETCR.LINE()
 #ehun.login(qr=True)
-#ehun.login(token="EtQkaaYsGJjAkT9f8WH1.8nezDhK7HGW9hVtLK4qvGq.+XonfervV7WyrDxhB5zSkc5uBLe3qxxyJPxjRtxURC4=")
 ehun.login(token="EtP88UQewgaZewX2y1ja.S4cn6FFFnFv+S2Brv+L5cG.Z10BxdoyrnrgVRzPOTxjjvP2pMlEYkutmpX8lsDo4+M=")
 ehun.loginResult()
 
