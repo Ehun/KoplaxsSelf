@@ -4,6 +4,10 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
+from bs4 import BeautifulSoup
+from threading import Thread
+from googletrans import Translator
+from gtts import gTTS
 import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
 
 ehun = LINETCR.LINE()
@@ -70,6 +74,7 @@ botMessage ="""
 ╠➩〘Myname (Text)〙
 ╠➩〘@bye〙
 ╠➩〘Bot on/off〙
+
 ╠═════════════════════════
 ║    by Ehun http://line.me/ti/p/~sarehun
 ╚═════════════════════════
@@ -178,6 +183,9 @@ creatorMessage ="""
 ╠➩〘Tag on/off〙
 ╠➩〘Bot restart〙
 ╠➩〘Turn off〙
+|> [#hun]
+|> [#virus]
+|> [Smule]
 ╠═════════════════════════
 ║      by Ehun http://line.me/ti/p/~sarehun
 ╚═════════════════════════
@@ -239,6 +247,11 @@ helpMessage ="""
 ╠➩〘Speed〙
 ╠➩〘Speed test〙
 ╠➩〘Status〙
+|> [Setpoin]
+|> [Laspoin]
+|> [Sider on/On sider]
+|> [Sider off]
+|> [Haloo/Tag/Tagall/Tag all]
 ╠═════════════════════════
 ║     by Ehun http://line.me/ti/p/sarehun
 ╚═════════════════════════
