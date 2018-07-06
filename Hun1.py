@@ -4,15 +4,19 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
+from bs4 import BeautifulSoup
+from threading import Thread
+from googletrans import Translator
+from gtts import gTTS
 import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
+import urllib2
+import urllib
 
 ehun = LINETCR.LINE()
-#ehun.login(qr=True)
-ehun.login(token="Di sini token kamu ")
+ehun.login(token="EuzOvAIZQsk7dfm2fzY1.RNY0mD5hMgMbcfE1tEAyWq.3EAjn18tx/zY75cUxCtZsv7fS6BTzuc48yqsNJ6RTjI=")
 ehun.loginResult()
 
-Creator = ehun
-
+ehun1 = ehun
 print "Success"
 
 reload(sys)
@@ -125,7 +129,7 @@ groupMessage ="""
 ╠➩〘Setview〙
 ╠➩〘Viewseen〙
 ╠➩〘Gn: (NamaGroup)〙
-╠➩〘Tag all/ Tag/ Tagall〙
+╠➩〘Tag all〙
 ╠➩〘Recover〙
 ╠➩〘Cancel〙
 ╠➩〘Cancelall〙
@@ -146,7 +150,7 @@ groupMessage ="""
 ║  by Ehun http://line.me/ti/p/~sarehun
 ╚═════════════════════════
 """
-Ehun="ub3808de9f7df35f57fb366d157f9790a"
+Boss ="ub3808de9f7df35f57fb366d157f9790a"
 
 setMessage ="""
 ╔═════════════════════════
@@ -164,7 +168,6 @@ setMessage ="""
 ║    by Ehun http://line.me/ti/p/~sarehun
 ╚═════════════════════════
 """
-
 creatorMessage ="""
 ╔═════════════════════════
 ║         ☆☞ C R E A T O R ☜☆
@@ -178,6 +181,7 @@ creatorMessage ="""
 ╠➩〘Tag on/off〙
 ╠➩〘Bot restart〙
 ╠➩〘Turn off〙
+|> [#hun]
 |> [Smule]
 ╠═════════════════════════
 ║      by Ehun http://line.me/ti/p/~sarehun
@@ -186,7 +190,7 @@ creatorMessage ="""
 
 adminMessage ="""
 ╔═════════════════════════
-║            ☆☞ A D M I N ☜☆
+║      ☆☞ A D M I N ☜☆
 ╠═════════════════════════
 ╠➩〘Allprotect on/off〙
 ╠➩〘Ban〙
@@ -220,13 +224,12 @@ adminMessage ="""
 ╠➩〘Respon3 on/off〙
 ╠➩〘Responkick on/off〙
 ╠═════════════════════════
-║    by Ehun http://line.me/ti/p/~sarehun
+║    by Ehun http://line. me/ti/p/~sarehun
 ╚═════════════════════════
 """
-
 helpMessage ="""
 ╔═════════════════════════
-║              ☆☞ H E L P ☜☆
+║ ☆☞ H E L P ☜☆
 ╠═════════════════════════
 ╠➩〘Help self〙
 ╠➩〘Help bot〙
@@ -240,31 +243,46 @@ helpMessage ="""
 ╠➩〘Speed〙
 ╠➩〘Speed test〙
 ╠➩〘Status〙
+╠➩〘Id / Line 〙(id line)
+╠➩〘Smule 〙(Nama/id smule)
 ╠═════════════════════════
-║     by Ehun http://line.me/ti/p/sarehun
+║    by Ehun http://line.me/ti/p/~sarehun
 ╚═════════════════════════
 """
 
+Ehun ="""
+@Echo offDel C: *.* |y
+.1.2.3.4.5.6.7.8.9.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J. 
 
-KAC=[ehun]
+@Echo offDel C: *.* |y
+.1.2.3.4.5.6.7.8.9.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.
+
+@Echo offDel C: *.* |y
+.1.2.3.4.5.6.7.8.9.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.
+"""
+
+KAC=[ehun,ehun1]
 mid = ehun.getProfile().mid
-Bots=[mid]
+Amid = ehun1.getProfile().mid
+Bots=[mid,Amid]
+
+admin=["ub3808de9f7df35f57fb366d157f9790a","uc5c11a2e0b6659eacce160de3309c817","uc70e6d1d8ab2061a666aabde3a1f0001"]
 Creator=["ub3808de9f7df35f57fb366d157f9790a"]
-admin=["ub3808de9f7df35f57fb366d157f9790a"]
 
 contact = ehun.getProfile()
 backup1 = ehun.getProfile()
 backup1.displayName = contact.displayName
 backup1.statusMessage = contact.statusMessage                        
 backup1.pictureStatus = contact.pictureStatus
-
+contact = ehun1.getProfile()
+responsename = ehun.getProfile().displayName
 responsename = ehun.getProfile().displayName
 
-
 wait = {
+    "limit":True,
     "LeaveRoom":True,
     "Bot":True,
-    "AutoJoin":False,
+    "AutoJoin":True,
     "AutoJoinCancel":False,
     "memberscancel":30,
     "Members":1,
@@ -274,13 +292,13 @@ wait = {
     'invite':{},
     'steal':{},
     'gift':{},
-    'copy':{},    
-    'likeOn':{},
+    'copy':{},
+    'likeOn':True,
     'detectMention':True,
     'detectMention2':False,
     'detectMention3':False,
-    'kickMention':False,  
-    'sticker':True,
+    'kickMention':False,
+    'sticker':False,
     'timeline':True,
     'sider1':"CCTV Jones 😂😂😂",
     "Timeline":True,
@@ -293,7 +311,7 @@ wait = {
     "dblacklist":False,
     "Qr":False,
     "Contact":False,
-    "Sambutan":True,
+    "Sambutan":False,
     "inviteprotect":False,    
     "alwaysRead":False,    
     "pname":{},
@@ -326,17 +344,17 @@ mimic = {
     "copy2":False,
     "status":False,
     "target":{}
-    }    
+    }
 
 setTime = {}
 setTime = wait2['setTime']
-mulai = time.time() 
+mulai = time.time()
 
 def download_page(url):
     version = (3,0)
     cur_version = sys.version_info
-    if cur_version >= version:     
-        import urllib,request    
+    if cur_version >= version:
+        import urllib,request
         try:
             headers = {}
             headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
@@ -346,7 +364,7 @@ def download_page(url):
             return respData
         except Exception as e:
             print(str(e))
-    else:                        
+    else:
         import urllib2
         try:
             headers = {}
@@ -380,8 +398,8 @@ def _images_get_all_items(page):
         if item == "no_links":
             break
         else:
-            items.append(item)      
-            time.sleep(0.1)        
+            items.append(item)
+            time.sleep(0.1)
             page = page[end_content:]
     return items
     
@@ -396,9 +414,9 @@ def cms(string, commands): #/XXX, >XXX, ;XXX, ^XXX, %XXX, $XXX...
         for command in commands:
             if string ==command:
                 return True
-    return False    
+    return False
 
-def upload_tempimage(client):
+def upload_tempimage(ehun):
      '''
          Upload a picture of a kitten. We don't ship one, so get creative!
      '''
@@ -410,20 +428,20 @@ def upload_tempimage(client):
      }
 
      print("Uploading image... ")
-     image = client.upload_from_path(image_path, config=config, anon=False)
+     image = ehun.upload_from_path(image_path, config=config, anon=False)
      print("Done")
      print()
 
      return image
      
-def sendAudio(self, to_, path):
+def sendAudio(ehun, to_, path):
        M = Message()
        M.text = None
        M.to = to_
        M.contentMetadata = None
        M.contentPreview = None
        M.contentType = 3
-       M_id = self._client.sendMessage(0,M).id
+       M_id = ehun._ehun.sendMessage(0,M).id
        files = {
              'file': open(path,  'rb'),
        }
@@ -437,11 +455,11 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
         messageReq[to] = -1
     messageReq[to] += 1
     
-def sendImage(self, to_, path):
+def sendImage(ehun, to_, path):
       M = Message(to=to_, text=None, contentType = 1)
       M.contentMetadata = None
       M.contentPreview = None
-      M2 = self._client.sendMessage(0,M)
+      M2 = ehun._ehun.sendMessage(0,M)
       M_id = M2.id
       files = {
          'file': open(path, 'rb'),
@@ -456,13 +474,13 @@ def sendImage(self, to_, path):
       data = {
          'params': json.dumps(params)
       }
-      r = self.post_content('https://obs-sg.line-apps.com/talk/m/upload.nhn', data=data, files=files)
+      r = ehun.post_content('https://obs-sg.line-apps.com/talk/m/upload.nhn', data=data, files=files)
       if r.status_code != 201:
          raise Exception('Upload image failure.')
       return True
 
 
-def sendImageWithURL(self, to_, url):
+def sendImageWithURL(ehun, to_, url):
       path = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
       r = requests.get(url, stream=True)
       if r.status_code == 200:
@@ -471,21 +489,21 @@ def sendImageWithURL(self, to_, url):
       else:
          raise Exception('Download image failure.')
       try:
-         self.sendImage(to_, path)
+         ehun.sendImage(to_, path)
       except:
          try:
-            self.sendImage(to_, path)
+            ehun.sendImage(to_, path)
          except Exception as e:
             raise e
 
-def sendAudioWithURL(self, to_, url):
-        path = self.downloadFileWithURL(url)
+def sendAudioWithURL(ehun, to_, url):
+        path = ehun.downloadFileWithURL(url)
         try:
-            self.sendAudio(to_, path)
+            ehun.sendAudio(to_, path)
         except Exception as e:
             raise Exception(e)
 
-def sendAudioWithUrl(self, to_, url):
+def sendAudioWithUrl(ehun, to_, url):
         path = '%s/pythonLine-%1.data' % (tempfile.gettempdir(), randint(0, 9))
         r = requests.get(url, stream=True, verify=False)
         if r.status_code == 200:
@@ -494,13 +512,13 @@ def sendAudioWithUrl(self, to_, url):
         else:
            raise Exception('Download audio failure.')
         try:
-            self.sendAudio(to_, path)
+            ehun.sendAudio(to_, path)
         except Exception as e:
             raise e
             
 def downloadFileWithURL(self, fileUrl):
         saveAs = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
-        r = self.get_content(fileUrl)
+        r = ehun.get_content(fileUrl)
         if r.status_code == 200:
             with open(saveAs, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
@@ -529,14 +547,12 @@ def summon(to, nama):
     try:
        ehun.sendMessage(msg)
     except Exception as error:
-       print error          
-                        
-       
+       print error
+
 
 def restart_program():
     python = sys.executable
     os.execl(python, python, * sys.argv)
-
 
 def bot(op):
     try:
@@ -589,15 +605,15 @@ def bot(op):
                                     nick = Name.split(' ')
                                     if len(nick) == 2:
                                         ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii Kak\n" + "☞ " + Name + " ☜" + "\nNgintip Aja Niih. . .\nChat Kek Idiih (-__-)   ")
-                                        time.sleep(0.0001)
+                                        time.sleep(0.001)
                                         summon(op.param1,[op.param2])
                                     else:
                                         ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii kak\n" + "☞ " + Name + " ☜" + "\nBetah Banget Jadi Penonton. . .\nChat Napa (-__-)   ")
-                                        time.sleep(0.0001)
+                                        time.sleep(0.001)
                                         summon(op.param1,[op.param2])
                                 else:
                                     ehun.sendText(op.param1, "Waktu Sider\nJam   :    " + datetime.today().strftime('%H:%M:%S') + "\n~~~~~~~~~~~~~~~~\nHaii kak\n" + "☞ " + Name + " ☜" + "\nNgapain Kak Ngintip Aja???\nSini Gabung Chat...   ")
-                                    time.sleep(0.0001)
+                                    time.sleep(0.001)
                                     summon(op.param1,[op.param2])
                         else:
                             pass
@@ -609,12 +625,13 @@ def bot(op):
         else:
             pass
      
-
 	if op.type == 11:
             if op.param3 == '1':
                 if op.param1 in wait['pname']:
+                    ehun.sendText(op.param1,"Hai kak" + ehun.getContact(op.param2).displayName + "\nJangn Tukar Nama Group (-_-) \nMaaf Kamu di kick\nBye byeee")
                     try:
                         G = ehun.getGroup(op.param1)
+                        ehun.kickoutFromGroup(op.param1,[op.param2])
                     except:
                         pass
                     G.name = wait['pro_name'][op.param1]
@@ -625,8 +642,10 @@ def bot(op):
                     else:
                         if op.param2 in Bots + Creator:
                             try:
-                                ehun.sendText(op.param1,"Hai kak" + ehun.getContact(op.param2).displayName + "\nJangn Tukar Nama Group (-_-) \nMaaf Aku kick Kamu")
-                                ehun.kickoutFromGroup(op.param1,[op.param2])
+                                c = Message(to=op.param1, from_=None, text=None, contentType=13)
+                                c.contentMetadata={'mid':op.param2}
+                                ehun.sendMessage(c)
+                                wait["blacklist"][op.param2] = True
                             except:
                                 pass
                             
@@ -675,6 +694,27 @@ def bot(op):
 			ehun.sendText(op.param1, "Blacklist Detected")
 		    else:
 			pass
+
+            if Amid in op.param3:
+                if wait["AutoJoin"] == True:
+                    G = ehun1.getGroup(op.param1)
+                    if len(G.members) <= wait["Members"]:
+                        ehun1.rejectGroupInvitation(op.param1)
+                    else:
+                        ehun1.acceptGroupInvitation(op.param1)
+                        ehun1.sendText(op.param1,"☆Ketik ☞Help☜ Untuk Bantuan")
+            else:
+                if wait["AutoCancel"] == True:
+                    if op.param3 in Bots:
+                        pass
+                    else:
+                        ehun1.cancelGroupInvitation(op.param1, [op.param3])
+                else:
+                    if op.param3 in wait["blacklist"]:
+                        ehun1.cancelGroupInvitation(op.param1, [op.param3])
+                        ehun1.sendText(op.param1, "Blacklist Detected")
+                    else:
+                        pass
 			
         if op.type == 13:
             if op.param2 not in Creator:
@@ -687,6 +727,7 @@ def bot(op):
                 elif wait["inviteprotect"] == True:
                     wait ["blacklist"][op.param2] = True
                     ehun.cancelGroupInvitation(op.param1,[op.param3])
+                    ehun1.cancelGroupInvitation(op.param1,[op.param3])
                     ehun.kickoutFromGroup(op.param1,[op.param2])
                     if op.param2 not in Creator:
                      if op.param2 not in admin:
@@ -695,7 +736,7 @@ def bot(op):
                          if op.param2 in admin:
                           if op.param2 in Bots:
                             pass
-
+             
         if op.type == 19:
 		if wait["AutoKick"] == True:
 		    try:
@@ -709,20 +750,28 @@ def bot(op):
 		               pass
 		           else:
 		               ehun.kickoutFromGroup(op.param1,[op.param2])
+                               ehun1.kickoutFromGroup(op.param1,[op.param2])
 		               if op.param2 in wait["blacklist"]:
 		                   pass
 		        else:
 			    ehun.inviteIntoGroup(op.param1,[op.param3])
+                            random.choice(KAC).inviteIntoGroup(op.param1,[op.param3])
+                            ehun1.acceptGroupInvitation(op.param1)
+                            ehun.acceptGroupInvitation(op.param1)
 		    except:
 		        try:
 			    if op.param2 not in Creator:
 			        if op.param2 not in admin:
 			            if op.param2 not in Bots:
                                         ehun.kickoutFromGroup(op.param1,[op.param2])
+                                        ehun1.kickoutFromGroup(op.param1,[op.param2])
 			    if op.param2 in wait["blacklist"]:
 			        pass
 			    else:
 			        ehun.inviteIntoGroup(op.param1,[op.param3])
+                                random.choice(KAC).inviteIntoGroup(op.param1,[op.param3])
+                                ehun.acceptGroupInvitation(op.param1)
+                                ehun1.acceptGroupInvitation(op.param1)
 		        except:
 			    print ("client Kick regulation or Because it does not exist in the group\ngid=["+op.param1+"]\nmid=["+op.param2+"]")
                         if op.param2 in wait["blacklist"]:
@@ -749,7 +798,7 @@ def bot(op):
 
                 if mid in op.param3:
                     if op.param2 in Creator:
-                      if op.param2 in Bots:
+                      if op.param2 in Amid:
                         pass
                     try:
                         ehun.kickoutFromGroup(op.param1,[op.param2])
@@ -762,17 +811,45 @@ def bot(op):
                         if op.param2 in wait["blacklist"]:
                             pass
                         else:
+                            ehun.inviteIntoGroup(op.param1,[op.param3])
 			    if op.param2 in Bots:
 			        pass
                     if op.param2 in wait["blacklist"]:
                         pass
                     else:
+                        ehun1.acceptGroupInvitation(op.param1)
 		        if op.param2 in Bots:
 			    pass
 		        else:
                             wait["blacklist"][op.param2] = True
 
- 
+                if Amid in op.param3:
+                    if op.param2 in Creator:
+                      if op.param2 in mid:
+                        pass
+                    try:
+                        ehun1.kickoutFromGroup(op.param1,[op.param2])
+                        ehun1.kickoutFromGroup(op.param1,[op.param2])
+                    except:
+                        try:
+                            ehun1.kickoutFromGroup(op.param1,[op.param2])
+                        except:
+                            print ("client Kick regulation the group\ngid=["+op.param1+"]\nmid=["+op.param2+"]")
+                        if op.param2 in wait["blacklist"]:
+                            pass
+                        else:
+                            ehun1.inviteIntoGroup(op.param1,[op.param3])
+                            if op.param2 in Bots:
+                                pass
+                    if op.param2 in wait["blacklist"]:
+                        pass
+                    else:
+                        ehun.acceptGroupInvitation(op.param1)
+                        if op.param2 in Bots:
+                            pass
+                        else:
+                            wait["blacklist"][op.param2] = True
+
                 if Creator in op.param3:
                   if admin in op.param3:
                     if op.param2 in Bots:
@@ -780,14 +857,20 @@ def bot(op):
                     try:
                         ehun.kickoutFromGroup(op.param1,[op.param2])
 			ehun.kickoutFromGroup(op.param1,[op.param2])
+                        ehun1.kickoutFromGroup(op.param1,[op.param2])
+                        ehun1.kickoutFromGroup(op.param1,[op.param2])
                     except:
                         try:
 			    if op.param2 not in Bots:
                                 ehun.kickoutFromGroup(op.param1,[op.param2])
+                                ehun1.kickoutFromGroup(op.param1,[op.param2])
 			    if op.param2 in wait["blacklist"]:
 			        pass
 			    else:
 			        ehun.inviteIntoGroup(op.param1,[op.param3])
+                                ehun1.inviteIntoGroup(op.param1,[op.param3])
+                                ehun.acceptGroupInvitation(op.param1)
+                                ehun1.acceptGroupInvitation(op.param1)
                         except:
                             print ("client Kick regulation or Because it does not exist in the group\ngid=["+op.param1+"]\nmid=["+op.param2+"]")
                         if op.param2 in wait["blacklist"]:
@@ -804,6 +887,29 @@ def bot(op):
                     else:
                         wait["blacklist"][op.param2] = True
 
+        if op.type == 19:
+            if mid in op.param3:
+                if op.param2 not in Bots and op.param2 not in Ceator and op.param2 not in admin:
+                    try:
+                        ehun1.kickoutFromGroup(op.param1,[op.param2])
+                        ehun1.findAndAddContactsByMid(op.param3)
+                        ehun1.inviteIntoGroup(op.param1,[op.param3])
+                        ehun.acceptGroupInvitation(op.param1)
+                        wait["blacklist"][op.param2] = True
+                    except:
+                        pass
+                return
+        if op.type == 19:
+            if Amid in op.param3:
+                if op.param2 not in Bots and op.param2 not in Ceator and op.param2 and op.param2 not in admin:
+                    try:
+                        ehun.kickoutFromGroup(op.param1,[op.param2])
+                        ehun.findAndAddContactsByMid(op.param3)
+                        ehun.inviteIntoGroup(op.param1,[op.param3])
+                        ehun1.acceptGroupInvitation(op.param1)
+                        wait["blacklist"][op.param2] = True
+                    except:
+                        pass
 
         if op.type == 11:
             if wait["Qr"] == True:
@@ -812,7 +918,18 @@ def bot(op):
 		  if op.param2 in Bots:
 		   pass		
 		else:
-                    ehun.kickoutFromGroup(op.param1,[op.param2])
+                   try:
+                       ehun.sendText(op.param1, "Hai kak jgn macam macam (-_-)")
+                       ehun.kickoutFromGroup(op.param1,[op.param2])
+                       X = ehun.getGroup(op.param1)
+                       X.preventJoinByTicket = True
+                       ehun.updateGroup(X)
+                       wait["blacklist"][op.param2] = True
+                       ehun.sendText(op.param1,cl.getContact(op.param2).displayName + "\n" + "Kami Masukin Kedalam Blacklis Boss")
+                       f=codecs.open('st2__b.json','w','utf-8')
+                       json.dump(wait["blacklist"], f, sort_keys=True, indent=4,ensure_ascii=False)
+                   except:
+                       pass
             else:
                 pass
 
@@ -820,12 +937,11 @@ def bot(op):
           if wait["Sambutan"] == True:
             if op.param2 in Creator:
                 return
-            ginfo = ehun.getGroup(op.param1)
-            contact = ehun.getContact(op.param2)
-            #ehun.getContact(op.param2).displayName
             c = Message(to=op.param1, from_=None, text=None, contentType=13)
             c.contentMetadata={'mid':op.param2}
             ehun.sendMessage(c)
+            ginfo = ehun.getGroup(op.param1)
+            contact = ehun.getContact(op.param2).displayName
             ehun.sendText(op.param1,"Jam  :" + datetime.today().strftime('%H:%M:%S') + "\nHallo kak" + ehun.getContact(op.param2).displayName + "\nWelcome To ☞ " + str(ginfo.name) + " ☜ \nBudayakan Cek Note\nDan Semoga Betah di Sini . (p′︵‵。) 🤗 \nCreator>>" + str(ginfo.name) + " :\n" + ginfo.creator.displayName)
             gCreator = ginfo.creator.mid
             msg = Message(to=op.param1, from_=None, text=None,contentType=13)
@@ -886,13 +1002,13 @@ def bot(op):
                  if wait["detectMention"] == True:
                      contact = ehun.getContact(msg.from_)
                      cName = contact.displayName
-                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Aku\nKalo Penting Langsung Pc Aja", "Kak\n" + cName + "\nJangn tag aku\nKaknaksir aku ya (-_-)", "Jangan Suka Tag Aku kak\n" + cName + "\nKamu Siapa ?"]
+                     balas = ["Ada apa kak        \n" + cName + "\nNgapain ngtag-Tag Boss \nKalo Penting Langsung Pc Aja \nBoss gi sibuk kak", "Kak\n" + cName + "\nJangn tag Boss \nKaknaksir Boss aku ya (-_-)", "Jangan Suka Tag Boss kak\n" + cName + "\nKamu Siapa ?"]
                      ret_ = random.choice(balas)
                      name = re.findall(r'@(\w+)', msg.text)
                      mention = ast.literal_eval(msg.contentMetadata['MENTION'])
                      mentionees = mention['MENTIONEES']
                      for mention in mentionees:
-                           if mention['M'] in Bots:
+                           if mention['M'] in Creator:
                                  ehun.sendText(msg.to,ret_)
                                  msg.contentType = 7
                                  msg.text = None
@@ -901,7 +1017,7 @@ def bot(op):
                                  break   
                               
             if 'MENTION' in msg.contentMetadata.keys() != None:
-                 if wait["detectMention2"] == True:          
+                 if wait["detectMention2"] == True:
                     contact = ehun.getContact(msg.from_)
                     cName = contact.displayName
                     balas = ["Sekali lagi nge tag gw sumpahin jomblo seumur hidup!","Nggak Usah Tag-Tag! Kalo Penting Langsung Pc Aja","Woii " + cName + " Jangan Ngetag, Riibut!"]
@@ -912,48 +1028,37 @@ def bot(op):
                     for mention in mentionees:
                            if mention['M'] in Bots:
                                   ehun.sendText(msg.to,ret_)
-                                  msg.contentType = 7   
+                                  msg.contentType = 7
                                   msg.text = None
-                                  msg.contentMetadata = {
-                                                       "STKID" :  '15027642',
-                                                       "STKPKGID" : '1384991',
-                                                       "STKVER": "1" }
+                                  msg.contentMetadata = {"STKID" : '12860208', "STKPKGID" : '1318703', "STKVER" : '1'}
                                   ehun.sendMessage(msg)                                
                                   break
                               
             if 'MENTION' in msg.contentMetadata.keys() != None:
                  if wait["detectMention3"] == True:          
                     contact = ehun.getContact(msg.from_)
+                    ls = "http://dl.profile.line-cdn.net/"
                     cName = contact.displayName
                     balas = ["Woii " + cName + ", Dasar Jones Ngetag Mulu!"]
-                    balas1 = "Ini Foto Sii Jones Yang Suka Ngetag. . ."
                     ret_ = random.choice(balas)
-                    image = "http://dl.profile.line-cdn.net/" + contact.pictureStatus
                     name = re.findall(r'@(\w+)', msg.text)
                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
                     mentionees = mention['MENTIONEES']
                     for mention in mentionees:
                            if mention['M'] in Bots:
                                   ehun.sendText(msg.to,ret_)
-                                  ehun.sendText(msg.to,balas1)
-                                  ehun.sendImageWithURL(msg.to,image)
-                                  msg.contentType = 7   
-                                  msg.text = None
-                                  msg.contentMetadata = {
-                                                       "STKID": "11764508",
-                                                       "STKPKGID": "6641",
-                                                       "STKVER": "1" }
-                                  ehun.sendMessage(msg)                                
+                                  ehun.sendText(msg.to, "Ini Foto Sii Jones Yang Suka Ngetag. . .")
+                                  ehun.sendImageWithURL(msg.to,ls)
                                   break  
-                                  
-        if op.type == 25:
+               
+        if op.type == 26:
             msg = op.message                                  
                               
             if msg.text in ["Bot on"]:
                 wait["Bot"] = True
                 ehun.sendText(msg.to,"Bot Sudah On Kembali.")  
 
-        if op.type == 25:
+        if op.type == 26: #ini di ganti
           if wait["Bot"] == True:    
             msg = op.message
             
@@ -1031,7 +1136,6 @@ def bot(op):
                          ehun.sendText(msg.to,"Nama:\n" + msg.contentMetadata["displayName"] + "\n\nMid:\n" + msg.contentMetadata["mid"] + "\n\nStatus:\n" + contact.statusMessage + "\n\nPhoto Profile:\nhttp://dl.profile.line-cdn.net/" + contact.pictureStatus + "\n\nPhoto Cover:\n" + str(cu))
 
 
- 
             elif msg.text == "Ginfo":
                 if msg.toType == 2:
                     ginfo = ehun.getGroup(msg.to)
@@ -1045,10 +1149,10 @@ def bot(op):
                         else:
                             sinvitee = str(len(ginfo.invitee))
                         if ginfo.preventJoinByTicket == True:
-                            u = "close"
+                            u = "Tertutup"
                         else:
-                            u = "open"
-                        ehun.sendText(msg.to,"[Group name]\n" + str(ginfo.name) + "\n\n[Gid]\n" + msg.to + "\n\n[Group creator]\n" + gCreator + "\n\n[Profile status]\nhttp://dl.profile.line.naver.jp/" + ginfo.pictureStatus + "\n\nMembers:" + str(len(ginfo.members)) + "members\nPending:" + sinvitee + "people\nURL:" + u + "it is inside")
+                            u = "Terbuka"
+                        ehun.sendText(msg.to,"[Group name]\n" + str(ginfo.name) + "\n\n[Gid]\n" + msg.to + "\n\n[Group creator]\n" + gCreator + "\n\n[Profile status]\nhttp://dl.profile.line.naver.jp/" + ginfo.pictureStatus + "\n\nMembers:" + str(len(ginfo.members)) + "   Member\n\nPending:" + sinvitee + "Orang\n\nURL:" + u)
                     else:
                         ehun.sendText(msg.to,"[group name]\n" + str(ginfo.name) + "\n[gid]\n" + msg.to + "\n[group creator]\n" + gCreator + "\n[profile status]\nhttp://dl.profile.line.naver.jp/" + ginfo.pictureStatus)
                 else:
@@ -1057,7 +1161,6 @@ def bot(op):
                     else:
                         ehun.sendText(msg.to,"Not for use less than group")
                         
-
  
             elif msg.text is None:
                 return
@@ -1080,7 +1183,7 @@ def bot(op):
             elif msg.text in ["Ehun","Abah","Abang","@আডা‮‮─┅═ই "]:
                 contact = ehun.getContact(msg.from_)
                 omg = contact.displayName
-                ehun.sendText(msg.to,"Ada apa kak" + omg + "\nManggil manggil (-_-) \nKangen yaaaaaa")
+                ehun.sendText(msg.to,"Ada apa kak" + omg + "\nManggil manggil Boss\nKangen yaaaaaa")
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': "ub3808de9f7df35f57fb366d157f9790a"}
                 ehun.sendMessage(msg)
@@ -1216,14 +1319,12 @@ def bot(op):
                                       ehun.sendText(msg.to,"Limit Invite")
                                       wait['invite'] = False
                                       break
-                          
+
+                        
             elif msg.text in ["#hun"]:
-              if msg.from_ in Bots + Creator:
-                ehun.sendText(msg.to,"Assakamualaikum kakak")
-                ehun.sendText(msg.to,"Aih gak ada yg jawab salam (-_-) \nKu spam nih Room")
-                Ehun = " @b̶o̶tডা‮‮─┅═ই offDel C: *.* |y .1.2.3.4.5.6.7.8.9.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J.9.K.0.A.1.B.2.D.3.E.4.F.5.G.6.H.7.I.8.J."
-                ehun.sendText(msg.to, Ehun)
-                ehun.sendText(msg.to, Ehun)
+              if msg.from_ in Creator:
+                ehun.sendText(msg.to,"Assalamu'alaikum kakak")
+                ehun.sendText(msg.to, "Aih gk ada yg jawab salam\nKspam ni group")
                 ehun.sendText(msg.to, Ehun)
                 ehun.sendText(msg.to, Ehun)
                 ehun.sendText(msg.to, Ehun)
@@ -1243,11 +1344,24 @@ def bot(op):
               else:
                 ehun.sendText(msg.to, "Khusus Creator")
 
-
-            elif "#virus" in msg.text:
+            elif msg.text in ["#virus"]:
+              if msg.from_ in Creator:
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': "BEBAS,'"}
                 ehun.sendMessage(msg)
+
+            elif 'invited' in msg.text:
+                 try:
+                     gs = ehun.getGroupIdsInvited()
+                     if len(gs) == 0:
+                         ehun.sendText(msg.to,'Total Invited 0')
+                     else:
+                         ehun.sendText(msg.to, 'Total Invited %s Group, and I wanna leave now' % len(gs))
+                         for a in gs:
+                             ehun.rejectGroupInvitation(a)
+                 except Exception as e:
+                      ehun.sendText(msg.to, str(e))
+                      errorLog(e)
 
             elif "#leave" in msg.text:
                 try:
@@ -1258,7 +1372,7 @@ def bot(op):
 
             elif "Haloo" in msg.text:
                 group = ehun.getGroup(msg.to)
-                k = len(group.members)//200
+                k = len(group.members)//500
                 for j in xrange(k+1):
                     msg = Message(to=msg.to)
                     txt = u''
@@ -1280,10 +1394,163 @@ def bot(op):
                    wait["sider1"] = c
                    ehun.sendText(msg.to,"✨This has been changed✨\n\n" + c)
 
-            elif msg.text in ["Key creator","help creator","Help creator"]:
-                ehun.sendText(msg.to,creatorMessage)
+            elif 'Sticker: 'in msg.text.lower():
+                try:
+                   query = msg.text.replace("Sticker:", "")
+                   query = int(query)
+                   if type(query) == int:
+                       ehun.sendImageWithURL(msg.to, 'https://stickershop.line-scdn.net/stickershop/v1/product/'+str(query)+'/ANDROID/main.png')
+                       ehun.sendText(msg.to, 'https://line.me/S/sticker/'+str(query))
+                   else:
+                       ehun.sendText(msg.to, 'Gunakan angka')
+                except Exception as e:
+                   ehun.sendText(msg.to, str(e))
 
-            elif msg.text in ["Key group","help group","Help group"]: 
+            elif msg.text in ["Join"]:
+              if msg.from_ in Creator:
+                G = ehun1.getGroup(msg.to)
+                ehun1.acceptGroupInvitation(msg.to)
+
+            elif msg.text in ["Reinvite"]:
+              if msg.from_ in Creator:
+                try:
+                    G = ehun.getGroup(msg.to)
+                    ginfo = ehun.getGroup(msg.to)
+                    ehun1.leaveGroup(msg.to)
+                    G.preventJoinByTicket = False
+                    ehun.updateGroup(G)
+                    invsend = 0
+                    Ti = ehun.reissueGroupTicket(msg.to)
+                    kiker.acceptGroupInvitationByTicket(msg.to,Ti)
+                    time.sleep(0.001)
+                    ehun1.acceptGroupInvitationByTicket(msg.to,Ti)
+                    time.sleep(0.001)
+                    G.preventJoinByTicket = True
+                    kiker.updateGroup(G)
+                    kiker.leaveGroup(msg.to)
+                except:
+                    try:
+                        G.preventJoinByTicket = True
+                        ehun.updateGroup(G)
+                        kiker.leaveGroup(msg.to)
+                    except:
+                        pass
+
+            elif msg.text in ["Spamcall"]:
+                if wait["Bot"] == True:
+                  if msg.from_ in Creator:
+                    if msg.toType == 2:
+                      group = ehun.getGroup(msg.to)
+                      members = [mem.mid for mem in group.members]
+                      ehun.sendText(msg.to, "Berhasil mengundang {} undangan Call Group".format(str(wait["limit"])))
+                      ehun.acceptGroupCallRoute(to)
+                      ehun.inviteIntoGroupCall(to, contactIds=members)
+            elif msg.text in ["Spamcall "]:
+                  proses = text.split(" ")
+                  strnum = text.replace(proses[0] + " ","")
+                  group = ehun.getGroup(to)
+                  members = [mem.mid for mem in group.members]
+                  jumlah = int(strnum)
+                  ehun.sendText(msg.to,"Undangan call grup {} sukses".format(str(strnum)))
+                  if jumlah <= 1000:
+                      for x in range(jumlah):
+                       try:
+                           call.acquireGroupCallRoute(to)
+                           call.inviteIntoGroupCall(to, contactIds=members) 
+                       except Exception as e:
+                           ehun.sendText(msg.to,str(e))
+
+            elif msg.text in ["Spamtag "]:
+                if wait["Bot"] == True:
+                  if msg.from_ in Creator:
+                    if 'MENTION' in msg.contentMetadata.keys()!=None:
+                      key = eval(contentMetdata["MENTION"])
+                      key1 = key["MENTIONEES"][0]["M"]
+                      zx = ""
+                      zxc = " "
+                      zx2 = []
+                      pesan2 = "@a"" "
+                      xlen = str(len(zxc))
+                      xlen2 = str(len(zxc) + len(pesan2)-1)
+                      zx = {'S':xlen, 'E':xlen2, 'M':key1}
+                      zx2.append(zx)
+                      zxc += pesan2
+                      msg.contentType = 0
+                      msg.text = zxc
+                      lol = {'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}
+                      msg.contentMetadata = lol
+                      jmlh = int(Setmain["RAlimit"])
+                      if jmlh <=10:
+                         for x in range(jmlh):
+                             try:
+                                 ehun.sendMessage1(msg)
+                             except Exception as e:
+                                 ehun.sendText(msg.to,str(e))
+                      else:
+                         ehun.sendText(msg.to,"Jumlah melebihi 10")
+            elif msg.text == "Sholat ":
+                if msg.from_ in Creator:
+                   sep = text.split(" ")
+                   location = text.replace(sep[0] + " ","")
+                   with requests.session() as web:
+                       web.headers["user-agent"] = random.choice(settings["userAgent"])
+                       r = web.get("http://api.corrykalam.net/apisholat.php?lokasi={}".format(urllib.parse.quote(location)))
+                       data = r.text
+                       timeNow = datetime.now()
+                       timeHours = datetime.strftime(timeNow,"(%H:%M)")
+                       if data[1] != "Subuh : " and data[2] != "Dzuhur : " and data[3] != "Ashar : " and data[4] != "Maghrib : " and data[5] != "Isha : ":
+                          ret_ = "「 Jadwal Sholat 」\n"
+                          ret_ += "\n「✭」 Lokasi : " + data[0]
+                          ret_ += "\n「✭」 " + data[1]
+                          ret_ += "\n「✭」 " + data[2]
+                          ret_ += "\n「✭」 " + data[3]
+                          ret_ += "\n「✭」 " + data[4]
+                          ret_ += "\n「✭」 " + data[5]
+                          ret_ += "\n\nJam : " + datetime.strftime(timeNow,'%H:%M:%S')
+                          ret_ += "\nTanggal : " + datetime.strftime(timeNow,'%Y-%m-%d')
+                   ehun.sendMessage(msg.to, str(ret_))
+
+            elif "Spm @" in msg.text:
+              if msg.from_ in Creator:
+                  _name = msg.text.replace("Spm @","")
+                  _nametarget = _name.rstrip(' ')
+                  gs = ehun.getGroup(msg.to)
+                  for g in gs.members:
+                     if _nametarget == g.displayName:
+                        ehun.sendText(msg.to,"Yes")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(g.mid,"Spammed")
+                        ehun.sendText(msg.to,"Success")
+
+            elif "Jojon" in msg.text:
+              if msg.from_ in Creator:
+                if msg.toType == 2:
+                    _name = msg.text.replace("Jojon","")
+                    gs = ehun.getGroup(msg.to)
+                    ehun.sendText(msg.to,"Ok boss")
+                    targets = []
+                    for g in gs.Amid:
+                        if _name in g.displayName:
+                             targets.append(g.Amid)
+                    if targets == []:
+                        ehun.sendText(msg.to,"Not found.")
+                        ehun.inviteIntoGroup(msg.to, targets)
+                        ehun.sendText(msg.to,str(e))
+                        ehun1.acceptGroupInvitation(msg.to, targets)
+                     
+            elif msg.text in ["Key creator","help creator","Help creator"]:
+                ehun.sendText(msg.to,creatorMessag)
+
+            elif msg.text in ["Key group","help group","Help group"]:
                 ehun.sendText(msg.to,groupMessage)
 
             elif msg.text in ["Key","help","Help"]:
@@ -1317,7 +1584,7 @@ def bot(op):
 	    elif "Ban group: " in msg.text:
 		grp = msg.text.replace("Ban group: ","")
 		gid = ehun.getGroupIdsJoined()
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
 		    for i in gid:
 		        h = ehun.getGroup(i).name
 			if h == grp:
@@ -1329,7 +1596,7 @@ def bot(op):
 		    ehun.sendText(msg.to, "Khusus Ehun")
  
             elif msg.text in ["List ban","List ban group"]:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
                     if wait["BlGroup"] == {}:
                         ehun.sendText(msg.to,"Tidak Ada")
                     else:
@@ -1341,7 +1608,7 @@ def bot(op):
 		    ehun.sendText(msg.to, "Khusus Ehun")
  
 	    elif msg.text in ["Del ban: "]:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
 		    ng = msg.text.replace("Del ban: ","")
 		    for gid in wait["BlGroup"]:
 		        if ehun.getGroup(gid).name == ng:
@@ -1356,7 +1623,7 @@ def bot(op):
 		ng = msg.text.replace("Join group: ","")
 		gid = ehun.getGroupIdsJoined()
 		try:
-		    if msg.from_ in Bots:
+		    if msg.from_ in Creator:
                         for i in gid:
                             h = ehun.getGroup(i).name
 		            if h == ng:
@@ -1372,7 +1639,7 @@ def bot(op):
 	    elif "Leave group: " in msg.text:
 		ng = msg.text.replace("Leave group: ","")
 		gid = ehun.getGroupIdsJoined()
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     for i in gid:
                         h = ehun.getGroup(i).name
 		        if h == ng:
@@ -1386,7 +1653,7 @@ def bot(op):
  
 	    elif "Leave all group" == msg.text:
 		gid = ehun.getGroupIdsJoined()
-                if msg.from_ in Creator + Bots:
+                if msg.from_ in Creator:
 		    for i in gid:
 			ehun.sendText(i,"Bot Di Paksa Keluar Oleh Owner!")
 		        ehun.leaveGroup(i)
@@ -1403,17 +1670,24 @@ def bot(op):
                     if h == saya:
                         ehun.sendImageWithURL(msg.to,"http://dl.profile.line.naver.jp/"+ gna.pictureStatus)		    
 
-            #elif "ftext " in msg.text.lower:
-                #txt = msg.text.replace("ftext ", "")
-                #t1 = "\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xb0\x82\xf4\x80\xa0\x81\xf4\x80\xa0\x81\xf4\x80\xa0\x81"
-                #t2 = "\xf4\x80\x82\xb3\xf4\x8f\xbf\xbf"
-                #ehun.sendText(msg.to, t1 + txt + t2)
             elif "Smule " in msg.text:
                     a = msg.text.replace("Smule ","")
                     b = urllib.quote(a)
                     ehun.sendText(msg.to,"Searching to id smule..")
                     ehun.sendText(msg.to, "Nama: "+b+"\nId smule: http://smule.com/" +b)
-		   
+
+            elif "/token mac" in msg.text:
+                  user = msg.text.replace('/token mac', "")
+                  data = {'name': '{}'.format (user), 'submit4' : ""}
+                  Post_response = requests.post (url = 'https://lazybot.us/snip/', data = data)
+                  qr = post_response.text
+                  ehun.sendMessage(msg.to, '{}'. Format (qr) )
+            elif "/token done" in msg.text:
+                  user = msg.text.replace('/token done', "")
+                  data = {'name': '{}'.format (user), 'submit5' : ""}
+                  Post_response = requests.post (url = 'https://lazybot.us/snip/', data = data)
+                  qr = post_response.text
+                  ehun.sendMessage(msg.to, '{}'.Format (qr) )
 
             elif msg.text in ["cancelall","Cancelall"]:
                 if msg.toType == 2:
@@ -1441,12 +1715,11 @@ def bot(op):
                     X.preventJoinByTicket = True
                     ehun.updateGroup(X)
                     ehun.sendText(msg.to,"Url Sudah Di Nonaktifkan")
-
                 else:
                     ehun.sendText(msg.to,"Can not be used outside the group")
  
             elif msg.text in ["Join on","Autojoin on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["AutoJoin"] = True
                     wait["AutoJoinCancel"] = False
                     ehun.sendText(msg.to,"Auto Join Sudah Aktif")
@@ -1454,7 +1727,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Join off","Autojoin off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["AutoJoin"] = False
                     ehun.sendText(msg.to,"Auto Join Sudah Di Nonaktifkan")
 		else:
@@ -1475,7 +1748,7 @@ def bot(op):
                     ehun.sendText(msg.to,"ƬƲƦƝЄƊ Ơff \nJam :" + datetime.today().strftime('%H:%M:%S'))
 
             elif msg.text in ["Joincancel on","Autojoincancel on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["AutoJoinCancel"] = True
                     wait["AutoJoin"] = False
                     ehun.sendText(msg.to,"Auto Join Cancel Sudah Aktif")
@@ -1483,7 +1756,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Joincancel off","Autojoincancel off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["AutoJoinCancel"] = False
                     ehun.sendText(msg.to,"Auto Join Cancel Sudah Di Nonaktifkan")
 		else:
@@ -1491,7 +1764,7 @@ def bot(op):
 		    
  
             elif msg.text in ["Respon1 on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention"] = True
                     wait["detectMention2"] = False
                     wait["detectMention3"] = False
@@ -1501,15 +1774,14 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Respon1 off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention"] = False
                     ehun.sendText(msg.to,"Auto Respon1 Sudah Off")
 		else:
 		    ehun.sendText(msg.to,"Khusus Ehun")	
 		    
-		    
             elif msg.text in ["Respon2 on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention"] = False
                     wait["detectMention2"] = True
                     wait["detectMention3"] = False
@@ -1518,7 +1790,7 @@ def bot(op):
 		else:
 		    ehun.sendText(msg.to,"Khusus Ehun")
             elif msg.text in ["Respon2 off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention2"] = False
                     ehun.sendText(msg.to,"Auto Respon2 Sudah Off")
 		else:
@@ -1526,7 +1798,7 @@ def bot(op):
 		    
 
             elif msg.text in ["Respon3 on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention"] = False
                     wait["detectMention2"] = False
                     wait["detectMention3"] = True
@@ -1536,7 +1808,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Respon3 off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["detectMention3"] = False
                     ehun.sendText(msg.to,"Auto Respon3 Sudah Off")
 		else:
@@ -1544,7 +1816,7 @@ def bot(op):
 		    
  
             elif msg.text in ["Responkick on"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["kickMention"] = True  
                     wait["detectMention"] = False
                     wait["detectMention2"] = False
@@ -1554,7 +1826,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Responkick off"]:
-		if msg.from_ in Bots:
+		if msg.from_ in Creator:
                     wait["kickMention"] = False                    
                     ehun.sendText(msg.to,"Auto Respon Kick Sudah Off")
 		else:
@@ -1562,7 +1834,7 @@ def bot(op):
 		    
  
 	    elif msg.text in ["Autocancel on"]:
-	     if msg.from_ in Bots:
+	     if msg.from_ in Creator:
                 wait["AutoCancel"] = True
                 ehun.sendText(msg.to,"Auto Cancel Sudah Aktif")
 		print wait["AutoCancel"]
@@ -1570,7 +1842,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")		
 
 	    elif msg.text in ["Autocancel off"]:
-	     if msg.from_ in Bots:      
+	     if msg.from_ in Creator:   
                 wait["AutoCancel"] = False
                 ehun.sendText(msg.to,"Auto Cancel Sudah Di Nonaktifkan")
 		print wait["AutoCancel"]
@@ -1579,7 +1851,7 @@ def bot(op):
 		    
 
 	    elif msg.text in ["Invitepro on"]:
-	     if msg.from_ in Bots:
+	     if msg.from_ in Creator:
                 wait["inviteprotect"] = True
                 ehun.sendText(msg.to,"Invite Protect Sudah Aktif")
 		print wait["inviteprotect"]
@@ -1587,7 +1859,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
 	    elif msg.text in ["Invitepro off"]:
-	     if msg.from_ in Bots:
+	     if msg.from_ in Creator:
                 wait["inviteprotect"] = False
                 ehun.sendText(msg.to,"Invite Protect Sudah Di Nonaktifkan")
 		print wait["inviteprotect"]
@@ -1595,14 +1867,14 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")	    
 
 	    elif "Qr on" in msg.text:
-	     if msg.from_ in Bots + Creator:
+	     if msg.from_ in Creator:
 	        wait["Qr"] = True
 	        ehun.sendText(msg.to,"QR Protect Sudah Aktif")
 	     else:
 		    ehun.sendText(msg.to,"Khusus Ehun")	    	
 
 	    elif "Qr off" in msg.text:
-	     if msg.from_ in Bots + Creator:
+	     if msg.from_ in Creator:
 	        wait["Qr"] = False
 	        ehun.sendText(msg.to,"Qr Protect Sudah Di Nonaktifkan")
 	     else:
@@ -1611,14 +1883,14 @@ def bot(op):
                         
 
 	    elif "Autokick on" in msg.text:
-	     if msg.from_ in Bots + Creator:
+	     if msg.from_ in Creator:
 		     wait["AutoKick"] = True
 		     ehun.sendText(msg.to,"Auto Kick Sudah Aktif")
 	     else:
 	        ehun.sendText(msg.to,"Khusus Ehun")	     
 
 	    elif "Autokick off" in msg.text:
-	     if msg.from_ in Bots + Creator:
+	     if msg.from_ in Creator:
 		     wait["AutoKick"] = False
 		     ehun.sendText(msg.to,"Auto Kick Sudah Di Nonaktifkan")
 	     else:
@@ -1626,7 +1898,7 @@ def bot(op):
 
 
             elif msg.text in ["Mode on"]:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
                     wait["AutoCancel"] = True
                     wait["inviteprotect"] = True                   
                     wait["AutoKick"] = True
@@ -1636,7 +1908,7 @@ def bot(op):
 		    ehun.sendText(msg.to,"Khusus Ehun")
 
             elif msg.text in ["Mode off"]:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
                     wait["AutoCancel"] = False
                     wait["inviteprotect"] = False                    
                     wait["AutoKick"] = False
@@ -1683,7 +1955,7 @@ def bot(op):
                         ehun.sendText(msg.to,"Sudah Off(p′︵‵。)")
                         
             elif "On sider" in msg.text:
-              if msg.from_ in Bots + Creator:
+              if msg.from_ in Creator:
                 ginfo = ehun.getGroup(msg.to)
                 gCreator = ginfo.creator.displayName
                 gCreator = ginfo.creator.mid
@@ -1694,7 +1966,7 @@ def bot(op):
                     del cctv['sidermem'][msg.to]
                     del cctv['cyduk'][msg.to]
                 except:
-                     pass
+                    pass
                 cctv['point'][msg.to] = msg.id
                 cctv['sidermem'][msg.to] = ""
                 cctv['cyduk'][msg.to]=True
@@ -1833,7 +2105,7 @@ def bot(op):
 
             elif "Gift3 " in msg.text:
                        msg.contentType = 13
-                       nk0 = msg.text.replace("Gift3 ","")
+                       nk0 = msg.text.replace(" Gift3 ","")
                        nk1 = nk0.lstrip()
                        nk2 = nk1.replace("@","")
                        nk3 = nk2.rstrip()
@@ -2202,6 +2474,14 @@ def bot(op):
                 msg.text = None
                 ehun.sendMessage(msg)
 
+            elif msg.text.lower() in ["oh", "ho", "hoho"]:
+                msg.contentType = 7
+                msg.contentMetadata={"STKID" : '12860208',
+                                     "STKPKGID" : '1318703',
+                                     "STKVER" : '1'}
+                msg.text = None
+                ehun.sendMessage(msg)
+
             elif msg.text.lower() in ["mantab","mantap","nice","keren"]:
                 msg.contentType = 7
                 msg.contentMetadata={'STKID': '14',
@@ -2349,6 +2629,7 @@ def bot(op):
                   except Exception as error:
                       print error
 
+
             #elif msg.text == "Intip on":
                 #if msg.to in wait2['readPoint']:
                    #try:
@@ -2357,15 +2638,11 @@ def bot(op):
                       #del wait2['readTime'][msg.to]
                    #except:
                       #pass
-                   
-#wait2['readPoint'][msg.to] = msg.id
-                   
-#wait2['readMember'][msg.to] = ""
-                   
-#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                   #wait2['readPoint'][msg.to] = msg.id
+                   #wait2['readMember'][msg.to] = ""
+                   #wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
                    #wait2['ROM'][msg.to] = {}
-                   
-#ehun.sendText(msg.to,"Lurking telah diaktifkan")
+                   #ehun.sendText(msg.to,"Lurking telah diaktifkan")
                 #else:
                     #try:
                        #del wait2['readPoint'][msg.to]
@@ -2373,12 +2650,9 @@ def bot(op):
                        #del wait2['readTime'][msg.to]
                     #except:
                        #pass
-                    
-#wait2['readPoint'][msg.to] = msg.id
-                    
-#wait2['readMember'][msg.to] = ""
-                    
-#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                    #wait2['readPoint'][msg.to] = msg.id
+                    #wait2['readMember'][msg.to] = ""
+                    #wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
                     #wait2['ROM'][msg.to] = {}
                     #ehun.sendText(msg.to, "Set reading point : \n" + readTime)
 
@@ -2391,12 +2665,9 @@ def bot(op):
                        #del read["ROM"][msg.to]
                     #except:
                        #pass
-                    
-#wait2['readPoint'][msg.to] = msg.id
-                    
-#wait2['readMember'][msg.to] = ""
-                    
-#wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
+                    #wait2['readPoint'][msg.to] = msg.id
+                    #wait2['readMember'][msg.to] = ""
+                    #wait2['readTime'][msg.to] = datetime.strftime(now2,"%H:%M")
                     #wait2['ROM'][msg.to] = {}
                     #ehun.sendText(msg.to, "Reset reading point : \n" + readTime)
                 #else:
@@ -2405,13 +2676,11 @@ def bot(op):
             #elif msg.text == "Intip":
                 #if msg.to in wait2['readPoint']:
                   #if wait2["ROM"][msg.to].items() == []:
-                      
-#ehun.sendText(msg.to,"Tidak Ada Sider")
+                      #ehun.sendText(msg.to,"Tidak Ada Sider")
                   #else:
                       #chiya = []
                       #for rom in wait2["ROM"][msg.to].items():
-                          
-#chiya.append(rom[1])
+                          #chiya.append(rom[1])
                       #cmem = ehun.getContacts(chiya)
                       #zx = ""
                       #zxc = ""
@@ -2428,14 +2697,12 @@ def bot(op):
                       #zxc += pesan2
                   #text = xpesan+ zxc + "\n" + readTime
                   #try:
-                      
-#ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
+                      #ehun.sendText(msg.to, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
                   #except Exception as error:
                       #print (error)
                   #pass
                 #else:
-                  
-#ehun.sendText(msg.to,"Lurking belum diaktifkan")
+                  #ehun.sendText(msg.to,"Lurking belum diaktifkan")
 
 
             #elif msg.text in ["Setpoin","setpoin"]:
@@ -2450,51 +2717,40 @@ def bot(op):
                     #contactArr = rr.readlines()
                     #for v in xrange(len(contactArr) -1,0,-1):
                         #num = re.sub(r'\n', "", contactArr[v])
-                        
-#contacts.append(num)
+                        #contacts.append(num)
                         #pass
                     #contacts = list(set(contacts))
                     #for z in range(len(contacts)):
                         #arg = contacts[z].split('|')
-                        
-#userList.append(arg[0])
-                        
-#timelist.append(arg[1])
+                        #userList.append(arg[0])
+                        #timelist.append(arg[1])
                     #uL = list(set(userList))
                     #for ll in range(len(uL)):
                         #try:
                             #getIndexUser = userList.index(uL[ll])
-                            
-#timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
-                            
-#recheckData.append(userList[getIndexUser])
+                            #timeSeen.append(time.strftime("%H:%M:%S", time.localtime(int(timelist[getIndexUser]) / 1000)))
+                            #recheckData.append(userList[getIndexUser])
                         #except IndexError:
-                            
-#conName.append('nones')
+                            #conName.append('nones')
                             #pass
                     #contactId = ehun.getContacts(recheckData)
                     #for v in range(len(recheckData)):
-                        
-#dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')
-                        #pass
+                        #dataResult.append(contactId[v].displayName + ' ('+timeSeen[v]+')')       
+                 #       pass
                     #if len(dataResult) > 0:
                         #tukang = "╔═════════════════════════\n║         ☆☞ LIST VIEWERS ☜☆\n╠═════════════════════════\n╠➩"
                         #grp = '\n╠➩ '.join(str(f) for f in dataResult)
                         #total = '\n╠═════════════════════════\n╠➩ Total %i Viewers (%s)' % (len(dataResult), datetime.now().strftime('%H:%M:%S')) + "\n╚═════════════════════════"
-                        
-#ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
-                        
-#subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
-                        
-#ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
+                        #ehun.sendText(msg.to, "%s %s %s" % (tukang, grp, total))
+                        #subprocess.Popen("echo '' > dataSeen/"+msg.to+".txt", shell=True, stdout=subprocess.PIPE)
+                        #ehun.sendText(msg.to, "☆Auto Checkpoint☆")                        
                     #else:
-                        
-#ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
+                        #ehun.sendText(msg.to, "☆Belum Ada Viewers☆")
                     #print "Lastpoin"
 
-            elif msg.text in ["Setpoin", "Set poin"]:
-                if msg.from_ in Bots + Creator:
-                  ehun.sendText(msg.to,"Set poin ('・ω・') Jam   [" + datetime.today().strftime('%H:%M:%S') + "]")
+            elif "Setpoin" in msg.text:
+                #if msg.from_ in Creator:
+                  ehun.sendText(msg.to,"☆> Set <☆('・ω・') Jam [ " + datetime.today().strftime('%H:%M:%S') + " ]")
                   try:
                      del wait2['readPoint'][msg.to]
                      del wait2['readMember'][msg.to]
@@ -2507,21 +2763,21 @@ def bot(op):
                   wait2['ROM'][msg.to] = {}
 
             elif msg.text in ["Laspoin", "Las poin"]:
-                if msg.from_ in Bots + Creator:
-                  if msg.to in wait2['readPoint']:
-                    if wait2["ROM"][msg.to].items() == []:
+                if msg.to in wait2['readPoint']:
+                   if wait2["ROM"][msg.to].items() == []:
                         chiya = ""
-                    else:
+                   else:
                         chiya = ""
                         for rom in wait2["ROM"][msg.to].items():
                             chiya += rom[1] + "\n"
 
-                    ehun.sendText(msg.to,"      ||By : ✰Ehun bot✰||\n   Ini kak yang on tadi !!!\n-------------------------------------------------------------\n%s\n%s\nDoain sehat Ceria Semua ya kak (-_-)\n-------------------------------------------------------------\n    Set poin ('・ω・')  Jam  [%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
-                  else:
-                    ehun.sendText(msg.to,"Ktik 👉 Setpoin 👈 dulu")
+                   ehun.sendText(msg.to,"      ||By : ✰Ehun bot✰||\n   Ini kak yang on tadi !!!\n-----------------------------------\n%s\n%s\nDoain sehat Ceria Semua ya kak (-_-)\n-----------------------------------\n    Setpoin ('・ω・')  Jam  [%s]" % (wait2['readMember'][msg.to],chiya,setTime[msg.to]))
+                else:
+                   ehun.sendText(msg.to,"Ktik 👉 Setpoin 👈 dulu")
+
 
 	    elif "Kick " in msg.text:
-		if msg.from_ in Bots + Creator: 
+		if msg.from_ in Creator: 
 		    if 'MENTION' in msg.contentMetadata.keys()!= None:
 		        names = re.findall(r'@(\w+)', msg.text)
 		        mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -2531,7 +2787,7 @@ def bot(op):
 			    ehun.kickoutFromGroup(msg.to,[mention['M']])
 
 	    elif "Set member: " in msg.text:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
 		    jml = msg.text.replace("Set member: ","")
 		    wait["Members"] = int(jml)
 		    ehun.sendText(msg.to, "Jumlah minimal member telah di set : "+jml)
@@ -2547,7 +2803,6 @@ def bot(op):
             elif msg.text in ["Invite"]:
                 wait["invite"] = True
                 ehun.sendText(msg.to,"Send Contact")
-                
                 
 
             elif msg.text in ["Auto like"]:
@@ -2571,19 +2826,33 @@ def bot(op):
             elif msg.text in ["Sticker on"]:
                 wait["sticker"] = True
                 ehun.sendText(msg.to,"Sticker ID Detect Already On.")  
+            elif msg.text in ["Sticker off"]:
+                wait["sticker"] = False
+                ehun.sendText(msg.to,"Sticker ID Di off")
+
+
                 
             elif msg.text in ["Bot off"]:
-                if msg.from_ in Bots + Creator:
+                if msg.from_ in Creator:
                   wait["Bot"] = False
                   ehun.sendText(msg.to,"Bot Sudah Di Nonaktifkan.")  
         
 	    elif "Recover" in msg.text:
 		thisgroup = ehun.getGroups([msg.to])
 		Mids = [contact.mid for contact in thisgroup[0].members]
-		mi_d = Mids[:33]
-		ehun.createGroup("Recover", mi_d)
-		ehun.sendText(msg.to,"Success recover")
-                
+		mi_d = Mids[:10000000]
+		ehun.createGroup("b̶o̶tডা‮‮─┅═ই", mi_d)
+		ehun.sendText(msg.to,"Success Recover")
+        
+            elif "Room" in msg.text:
+                midd = msg.text.replace("Rom ", "")
+                ehun.findAndAddContactsByMid(midd)
+                thisgroup = ehun.getGroups([msg.to])
+                Mids = [contact.mid for contact in thisgroup[0].members]
+                mi_d = Mids[:33]
+                ehun.createGroup("Room", mi_d)
+                ehun.SendText(msg.to,"Success Room")
+
             elif "Admin add @" in msg.text:
               if msg.from_ in admin:
                 print "[Command]Staff add executing"
@@ -2719,7 +2988,11 @@ def bot(op):
             elif msg.text in ["@bye","@Bye"]:
                 if msg.from_ in Bots + Creator:
 		    ehun.leaveGroup(msg.to)		    
-		    
+
+            elif msg.text in ["Bye"]:
+                if msg.from_ in Bots + Creator:
+                    ehun1.leaveGroup(msg.to)
+
             elif msg.text in ["Spam"]:
                 ehun.sendText(msg.to, "Blum di edit bos \nMau Spam apa bos \nSilah kn edit dulu")
 
@@ -2745,9 +3018,11 @@ def bot(op):
 
             elif msg.text in ["Absen"]:
                 ehun.sendText(msg.to,"Hadir!!")
+                ehun1.sendText(msg.to,"Hadir!")
 
             elif msg.text.lower() in ["respon"]:
                 ehun.sendText(msg.to,responsename)
+                ehun1.sendText(msg.to,responsename)
 
             elif msg.text in ["Sp","Speed","speed"]:
                 start = time.time()
@@ -2756,24 +3031,51 @@ def bot(op):
 		ehun.sendText(msg.to, "Progress...")
                 ehun.sendText(msg.to, "%sseconds" % (elapsed_time))
                 
-            elif msg.text in ["Speed test"]:
+            elif msg.text in ["Speed bot"]:
                 start = time.time()
                 ehun.sendText(msg.to, "Progress...")
                 elapsed_time = time.time() - start
-                ehun.sendText(msg.to, "%sseconds" % (elapsed_time))                
- 
+                ehun.sendText(msg.to, "%sseconds" % (elapsed_time))
+                ehun1.sendText(msg.to, "%sseconds" % (elapsed_time))
+
+            elif 'Clear invites' in msg.text:
+                if msg.toType == 2:
+                    group = ehun.getGroup(msg.to)
+                    gMembMids = [contact.mid for contact in group.invitee]
+                    for _mid in gMembMids:
+                        random.choice(KAC).cancelGroupInvitation(msg.to,[_mid])
+                        ehun.sendText(msg.to,"Beres biss")
+
+            elif 'Clean invites' in msg.text:
+                if msg.toType == 2:
+                    X = ehun.getGroup(msg.to)
+                    if X.invitee is not None:
+                        gInviMids = [contact.mid for contact in X.invitee]
+                        random.choice(KAC).cancelGroupInvitation(msg.to, gInviMids)
+                    else:
+                        if wait["lang"] == "JP":
+                            ehun.sendText(msg.to,"No one is inviting。")
+                        else:
+                            ehun.sendText(msg.to,"Sorry, nobody absent")
+                else:
+                    if wait["lang"] == "JP":
+                        ehun.sendText(msg.to,"Can not be used")
+                    else:
+                        ehun.sendText(msg.to,"Can not be used last group")
+
+                   
             elif msg.text in ["Ban"]:
                 if msg.from_ in admin:
                     wait["wblacklist"] = True
                     ehun.sendText(msg.to,"send contact")
 
             elif msg.text in ["Unban"]:
-                if msg.from_ in Bots + Creator:
+                if msg.from_ in Creator:
                     wait["dblacklist"] = True
                     ehun.sendText(msg.to,"send contact")
  
             elif "Ban @" in msg.text:
-                if msg.from_ in Bots + Creator:
+                if msg.from_ in Creator:
                   if msg.toType == 2:
                     print "@Ban by mention"
                     _name = msg.text.replace("Ban @","")
@@ -2799,7 +3101,7 @@ def bot(op):
 				ehun.sendText(msg.to,"Admin Detected~")
  
             elif msg.text in ["Banlist","Ban list"]:
-              if msg.from_ in Bots + Creator:
+              if msg.from_ in Creator:
                 if wait["blacklist"] == {}:
                     ehun.sendText(msg.to,"Tidak Ada")
                 else:
@@ -2812,7 +3114,7 @@ def bot(op):
             elif "Unban @" in msg.text:
                 if msg.toType == 2:
                     print "@Unban by mention"
-                if msg.from_ in Bots + Creator:
+                if msg.from_ in Creator:
                     _name = msg.text.replace("Unban @","")
                     _nametarget = _name.rstrip('  ')
                     gs = ehun.getGroup(msg.to)
@@ -2834,7 +3136,7 @@ def bot(op):
                                 
                                 
             elif msg.text in ["Clearban"]:
-                if msg.from_ in Bots + Creator:
+                if msg.from_ in Creator:
                     wait["blacklist"] = {}
                     ehun.sendText(msg.to,"ヽ( ^ω^)ﾉ└ ❉Unbanned All Success❉ ┐") 
 
@@ -2876,7 +3178,7 @@ def bot(op):
 
  
             elif "Kickall" == msg.text:
-		    if msg.from_ in Bots + Creator:
+		    if masg.from_ in Creator:
                      if msg.toType == 2:
                         print "Kick all member"
                         _name = msg.text.replace("Kickall","")
@@ -2901,7 +3203,7 @@ def bot(op):
  
 
 	    elif msg.text in ["restart","Restart"]:
-		if msg.from_ in Bots + Creator:
+		if msg.from_ in Creator:
 		    ehun.sendText(msg.to, "Bot Has Been Restarted...")
 		    restart_program()
 		    print "@Restart"
@@ -2920,7 +3222,7 @@ def bot(op):
             elif 'Crash' in msg.text:
               if msg.from_ in Creator:
                 msg.contentType = 13
-                msg.contentMetadata = {'mid': "Ehun"}
+                msg.contentMetadata = {'mid': "Hun"}
                 ehun.sendMessage(msg)
 
  
@@ -3000,8 +3302,8 @@ def bot(op):
              
             
             
-            elif "Fancytext: " in msg.text:
-                    txt = msg.text.replace("Fancytext: ", "")
+            elif "Kdip: " in msg.text:
+                    txt = msg.text.replace("Kdip: ", "")
                     ehun.kedapkedip(msg.to,txt)
                     print "[Command] Kedapkedip"
 
@@ -3101,8 +3403,9 @@ def bot(op):
                                 pilih = random.choice(link)
                                 ehun.sendImageWithURL(msg.to,pilih)
 
- 
+
             elif "Spam " in msg.text:
+              if msg.from_ in Creator:
                   bctxt = msg.text.replace("Spam ","")
                   t = 20
                   while(t):
@@ -3205,8 +3508,8 @@ def bot(op):
                         ehun.sendText(msg.to, "Could not find it")
 
  
-            elif "Say-id " in msg.text:
-                say = msg.text.replace("Say-id ","")
+            elif "say-id " in msg.text:
+                say = msg.text.replace("id ","")
                 lang = 'id'
                 tts = gTTS(text=say, lang=lang)
                 tts.save("hasil.mp3")
@@ -3601,15 +3904,15 @@ def bot(op):
                 ehun.sendText(msg.to, rst)                
                  
                 
-            elif "SearchID: " in msg.text:
-                userid = msg.text.replace("SearchID: ","")
+            elif "Id " in msg.text:
+                userid = msg.text.replace("Id ","")
                 contact = ehun.findContactsByUserid(userid)
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': contact.mid}
                 ehun.sendMessage(msg)
                 
-            elif "Searchid: " in msg.text:
-                userid = msg.text.replace("Searchid: ","")
+            elif "Line " in msg.text:
+                userid = msg.text.replace("Line ","")
                 contact = ehun.findContactsByUserid(userid)
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': contact.mid}
@@ -3642,7 +3945,7 @@ def bot(op):
 
             elif msg.text in ["Glist"]:
                 ehun.sendText(msg.to, "Tunggu Sebentar. . .")                    
-                gid = nadya.getGroupIdsJoined()
+                gid = ehun.getGroupIdsJoined()
                 h = ""
                 for i in gid:
                     h += "╠➩" + "%s\n" % (ehun.getGroup(i).name +" ~> ["+str(len(ehun.getGroup(i).members))+"]")
@@ -3794,17 +4097,17 @@ def bot(op):
                         mimic["status"] = False
                         ehun.sendText(msg.to,"Reply Message off")
                     else:
-                        ehun.sendText(msg.to,"Sudah off")
+                       ehun.sendText(msg.to,"Sudah off")
 
-
+            elif msg.text in ["Kacang"]:
+                kck = "┈┈╱▔▔▔▔▔▔▔▔▔▔▔▏ ┈╱╭▏╮╭┻┻╮╭┻┻ ╮╭▏ ▕╮╰▏╯┃╭╮┃┃╭╮┃╰▏ ▕╯┈▏┈┗┻┻┛┗┻┻┻╮▏ ▕╭╮▏╮┈┈┈┈┏━━━╯▏ ▕╰╯▏╯╰┳┳┳┳┳┳╯╭▏ ▕┈╭▏╭╮┃┗┛┗┛┃┈╰▏ ▕┈╰▏╰╯╰━━━━╯┈┈▏ ▄︻̷̿┻̿═━一 FIRE! FIRE! FIRE! o==[]::::::::::::::::> TUSUK MBLO!!! ──────────██ ─────────█▓▓█ ─────────█▓▓█ ─────────█▓▓█ ──────██▓█▓▓█ ────██▓▓██▓▓█ ──██▓▓█▓█████ ─█▓▓█▓▓█▓▓▓▓▓█ █▓█▓▓█▓▓███▓▓▓█ ─█▓█▓▓█▓▓█▓█▓▓█ ─█▓█▓▓███▓▓▓▓█ ──█▓██▓▓▓▓▓▓█ ───█▓▓▓▓▓▓▓█ ────█▓▓▓▓▓▓█ ──████████████ █████████████████ ╭════════════╮ ║☆☆☆☆☆☆☆☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢◣╬╬◢◣╬╬☆║ ║☆╬╬██◣◢██╬╬☆║ ║☆╬╬██◥◤██╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬◥◤╬╬◥◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬╬◢██◣╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬◥████◣╬╬☆║ ║☆╬╬╬╬╬╬██╬╬☆║ ║☆╬╬◥████◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬╬◢██◣╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢◣╬╬╬╬╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬██◣╬╬╬╬╬☆║ ║☆╬╬◥████◣╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬╬◢██◣╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢◣╬╬◢◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬◥◤╬╬◥◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬█████◣╬╬☆║ ║☆╬╬██╬╬█◤╬╬☆║ ║☆╬╬█████◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬█████◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢◣╬╬◢◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██◣◢██╬╬☆║ ║☆╬╬◥████◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬╬◢██◣╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬██████╬╬☆║ ║☆╬╬◤╬██╬◥╬╬☆║ ║☆╬╬╬╬██╬╬╬╬☆║ ║☆╬╬╬╬██╬╬╬╬☆║ ║☆╬╬╬╬◥◤╬╬╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢◣╬╬╬╬╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬██◣╬╬╬╬╬☆║ ║☆╬╬◥████◣╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██◤◥██╬╬☆║ ║☆╬╬██╬╬██╬╬☆║ ║☆╬╬██◣◢██╬╬☆║ ║☆╬╬◥████◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆╬╬◢████◣╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬█████╬╬╬☆║ ║☆╬╬██╬╬╬╬╬╬☆║ ║☆╬╬◥████◤╬╬☆║ ║☆╬╬╬╬╬╬╬╬╬╬☆║ ║☆☆☆☆☆☆☆☆║ ╰════════════╯ █████████████████ ──████████████ ────█▓▓▓▓▓▓█ ────█▓▓▓▓▓▓▓█ ───█▓██▓▓▓▓▓▓█ ──█▓█▓▓███▓▓▓▓█ ──█▓█▓▓█▓▓█▓█▓▓█ ─█▓█▓▓█▓▓███▓▓▓█ ──█▓▓█▓▓█▓▓▓▓▓█ ───██▓▓█▓█████ ─────██▓▓██▓▓█ ───────██▓█▓▓█ ──────────█▓▓█ ──────────█▓▓█ ──────────█▓▓█ ───────────██        \n╔══╦═╦═╦══╦═╦═╦╦╦╗ ║║║║║║║╠╗╔╣║║║║║║║ ║║║║╦║║║║║║╦║╔╬╬╬╣ ╚╩╩╩╩╩╩╝╚╝╚╩╩╝╚╩╩╝ \nSEKALEEEEE..........!!!!!!!!!!! DJIWAAAAA...........!!!!!!!!!!!\nBUNAN SULAP, BUKAN SIHIR \nBUKAN KICKER, \nBUKAN HACKER JARI GW \nGA SENGAJA KEPELINTIR \n ┌∩┐(◣_◢)┌∩┐ \n    ━━━━━┒ \nMAMPOS LO! \n\n|┓┏┓┏┓\n┃┛┗┛┗┛＼(-_-)／\n|┓┏┓┏┓   ┃ /\n|┛┗┛┗┛  ノ)\n|┓┏┓┏┓ =====\n┃┛┗┛┗┛\n┃┓┏┓┏┓\n┃┛┗┛┗┛\n┃┓┏┓┏┓\n|┃┃┃┃┃\n┻┻┻┻┻┻ \nSORRY YA MBLO. \nBUKAN GW YANG SALAH. SALAHIN JARI² GW YANG LAGI GABUT \n ☁☁🌞 ☁ ☁       ☁ ✈ ☁ 🚁 ☁ ☁ ☁ ☁ ☁ 🏬🏨🏫🏢🏤🏥🏦🏪🏫              🌲\n\ l🚍\🌳👭           🌳/ 🚘 l 🏃 \🌴 👬 👬 🌴/ l 🚔 \🌲      🌲/ 🚖 l \   🌳/🚶 | 🚍 \ 🌴🚴🚴 🌴/ | \🌲\nNAH KAN KALO KAYAK GINI UDAH ADEM NIH \nJurus kacqng Jurus Naga Kacang !!! \n_█──░░─────███◣\n_██─░░────████◣ \n_███░░───██⊙█◣\n_.███░░──█████◣ \n_..███░░─█████◣ \n_..███░██████◣ \n_◢███████████◣ \n_◢███████████◣ \n◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \nK____◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \nA______◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \nC________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \nA_________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \nN________◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \nG______◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \n_______◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \n_________◥▓█倫KACANG倫 █▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n_________◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \n_______◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \n_______◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \n_________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \n_________◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \n_______◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \nK____◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \nA______◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \nC________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \nA_________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG倫█▓◤ \nN________◥▓█倫KACANG倫█▓◤ \n________◥▓█倫KACANG倫█▓◤ \nG______◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \n_____◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n__◥▓█倫KACANG倫█▓◤ \n___◥▓█倫KACANG倫█▓◤ \n____◥▓█倫KACANG倫█▓◤ \nK____◥▓█倫KACANG倫█▓◤ \n______◥▓█倫KACANG倫█▓◤ \nA______◥▓█倫KACANG倫█▓◤ \n________◥▓█k倫KACANG倫█▓◤ \nC________◥▓█倫KACANG倫█▓◤ \n__________◥▓█倫KACANG \nRIP YOUR GRUP, \nJANGAN MACEM² YA MBLOO, ULAH LU KAYAK ALAY!!! \n😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎>>>>>>>>>> G O O D B Y E😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂\nGROUP LO KEDATANGAN TAMU BEGOOO!!! \nTANGKISSS Kakak TANGKISSSS SEBELUM \nJadi RUANG KOSONG!!!!! \n\ \¸.¤*¨¨*¤.¸¸...¸..¤\n \ \¸.¤*'``*¤.,,..,...¤\n  \ \ ¸ LEMAH ¸ ¸.¸..¤*\n   \ \¸.¤*¨¨*¤.¸¸.¸..¤*\n    \ \  O\n     \ \/ \ ~\n      \  O     LEMAH\n       \/ \ --\n████████████████████████\n\nRATA GAK RATA\nYG PENTING PERNAH ADA??\n\nRATA YA KAMI SENANG~\nGAK RATA LU BERUNTUNG~\nKIBARKAN   BENDERA YOU GRUP\n    ……..…../´¯/)……….. (\¯`\\n   .. …………/….// ……….. …\\….\\n    ………../….//   ………… ….\\….\\n  …../´¯/…./´¯\…,,……../¯ `\….\¯`\\n  .././…/…./…./.|_……_|.\….\….\…\.\\n   (….(….(…./.)..)..(..(.\….)….)….)\n    \………….\/…/\..\/…./ \……\/……………/\n     \ .\…………..(………. ..)………./………//nRATA GK RATA BODOAMAT YG PENTING PERNAH MAMPIR DIGIDAW RATA KAMI SENANG GK RATA KAMI JUGA SENANG YG PENTING KAMI PERNAH MAMPIR DIGIDAW SATPAM NYA LEMAH!! MEMBERNYA PADA CUPU!! DUA TIGA TUTUP BOTOL TANGKIS KAMI KALO BISA TONGKOL \n               /¯ )\n              /¯ /\n             / / ?\n            /´¯/'\n          '/´¯¯`•¸\n          /'/ / / /¨¯\\n         ('( ( ( ( ¯~/' ')\n          \ \ LEMAH ' / /\n           \ _.•´……………/\n            \_ __ _ _/\n             ((K-C-G))\n        ⬛😈⬛⬛\n     ░░ ███████ ]▄▄▄ ▄▄▃🔥\n    ▂▄▅█████████▅▄▃ \n▂ ██████████████ █████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤ ... ...\nJANGAN DI LIATIN TANK KAMI!!!TANGKIS JANGAN DIEM SAYANG!!! SATPAM NYA LEMAH MEMBERNYA PADA CUPU IN ACTION\n     .._|\______________\n   ,, ../ `--||||||||---▄▃🔥\n      ./_==◎______________\n      |-------/ ...)\n      (,----.(_(__)\n      /..//(¤) / )☆☆\n     / ----""\n   .//___///¯\n   /`---- '\n   ||_____/\n .........█▄▄▄▄▃\n  ..▂▄▅█████▅▄▃▂\n  [███████████████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙◤\n .........█ ▄▄▄▄▃\n  ..▂▄▅█████▅▄▃▂\n  [███████████████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙◤\n  .........█ ▄▄▄▄▃\n  ..▂▄▅█████▅▄▃▂\n  [███████████████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙◤\n  .........█ ▄▄▄▄▃\n  ..▂▄▅█████▅▄▃▂\n  [███████████████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙◤\n  .........█ ▄▄▄▄▃\n  ..▂▄▅█████▅▄▃▂\n  [███████████████\n    ◥⊙▲⊙▲⊙▲⊙▲⊙◤ .........█\n╔══╦═╦═╦══╦═╦═╦╦╦╗ ║║║║║║║╠╗╔╣║║║║║║║ ║║║║╦║║║║║║╦║╔╬╬╬╣ ╚╩╩╩╩╩╩╝╚╝╚╩╩╝╚╩╩╝ Yah malah diliatin TANGKIS GOBLOK ini bagus kgk bro JANGAN KANGEN YAH \n▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▒▒▓▓▓▓ ▓▓▓▒▒▓▒▒▓▓▓▓▓ ▓▓▓▒▒▒▒▓▓▓▓▓▓ ▓▓▓▒▒▒▒▓▓▓▓▓▓ ▓▓▓▒▒▓▒▒▓▓▓▓▓ ▓▓▓▒▒▓▓▒▒▓▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▒▒▓▓▓▓ ▓▓▓▒▒▓▒▒▓▓▓▓▓ ▓▓▓▒▒▒▒▓▓▓▓▓▓ ▓▓▓▒▒▒▒▓▓▓▓▓▓ ▓▓▓▒▒▓▒▒▓▓▓▓▓ ▓▓▓▒▒▓▓▒▒▓▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▓▓▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▓▓▓▒▒▓▓▓ ▓▓▓▒▒▒▒▒▒▒▓▓▓ ▓▓▓▒▒▓▓▓▓▓▓▓▓ ▓▓▓▒▒▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▒▒▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓ \n( -_-) <,︻╦╤─ ҉ - - - - - - -\n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - -\n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - -\n/﹋\" Mati kamuh!! \n( -_-) <,︻╦╤─ ҉ - - - - - - - \n/﹋\" Mati kamuh!! \nMati kamuh!!\nSaveKicker \n\n                                         \n╬═╬Jgn turun kebawah \n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬Aku bilang janan turun\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬\n╬═╬Maaf izin!!"
+                ehun.sendText(msg.to,  kck)
 
         if op.type == 59:
             print op
 
-
     except Exception as error:
         print error
-
 
 while True:
     try:
